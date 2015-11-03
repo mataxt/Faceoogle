@@ -1,4 +1,1 @@
-*.xml
-*.classpath
-Faceoogle/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml
-Faceoogle/.settings/org.eclipse.wst.ws.service.policy.prefs
+Faceoogle/.classpath
