@@ -1,5 +1,11 @@
 package controller;
 
 public class Login {
-	// HEJ
+	
+	private String username;
+	private String password;
+	
+	public Login() {
+		
+	}
 }
