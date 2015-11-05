@@ -121,13 +121,14 @@
 							</div>
 						</div>
 						<div class="row control-group">
-							Birthday (yyyy-mm-dd)
+							Birthdate (yyyy-mm-dd)
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
-								<h:inputText id="date" value="#{registerBean.birthday}"
-									required="true" label="Birthday">
-									<f:convertDateTime pattern="yyyy-mm-dd" />
+								<h:inputText id="date" value="#{registerBean.birthdate}"
+									required="true" label="Birthdate">
+									<f:convertDateTime pattern="yyyy-MM-dd" />
 								</h:inputText>
+								<h:message for="date" style="color:red"> Wrong format </h:message>
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>

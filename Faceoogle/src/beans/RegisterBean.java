@@ -1,9 +1,11 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.faces.bean.ManagedBean;
+
+import logic.Register;
 
 @ManagedBean(name="registerBean")
 public class RegisterBean implements Serializable {
@@ -12,15 +14,15 @@ public class RegisterBean implements Serializable {
 	private String username;
 	private String password;
 	private String name;
-	private Date birthday;
+	private Date birthdate;
 	private String gender;
 	
-	public Date getbirthday() {
-		return birthday;
+	public java.util.Date getBirthdate() {
+		return birthdate;
 	}
 	
-	public void setbirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setBirthdate(java.util.Date birthdate) {
+		this.birthdate = new java.sql.Date(birthdate.getTime());
 	}
 	
 	public String getGender() {
@@ -55,10 +57,8 @@ public class RegisterBean implements Serializable {
 		this.name = name;
 	}
 	
-	public void register() {
-		System.out.println(this.name + "\n" +
-				this.birthday + "\n" + 
-				this.gender +
-				this.username + "\n");
+	public String register() {
+		Register.addUser(username, password, name, birthdate, gender);
+		return null;
 	}
 }

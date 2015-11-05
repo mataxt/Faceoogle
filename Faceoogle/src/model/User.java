@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,17 +15,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "Users", catalog = "faceoogle")
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private String name;
 	private Date birthDate;
 	private String gender;
-	private Set<User> friends;
-
+//	private Set<User> friends;
+	
+	public User(String username, String password, String name, Date birthDate, String gender) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.birthDate = birthDate;
+		this.gender = gender;
+	}
 	@Id
 	@Column(name = "Username")
 	public String getUsername() {
@@ -72,16 +80,16 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "friends", joinColumns = {@JoinColumn(name = "username", nullable = false, updatable = false) }, 
-			inverseJoinColumns = {@JoinColumn(name = "username", nullable = false, updatable = false) }
-			)
-	public Set<User> getFriends() {
-		return this.friends;
-	}
-
-	public void setFriends(Set<User> friends) {
-		this.friends = friends;
-	}
+//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@JoinTable(
+//			name = "friends", joinColumns = {@JoinColumn(name = "username", nullable = false, updatable = false) }, 
+//			inverseJoinColumns = {@JoinColumn(name = "username", nullable = false, updatable = false) }
+//			)
+//	public Set<User> getFriends() {
+//		return this.friends;
+//	}
+//
+//	public void setFriends(Set<User> friends) {
+//		this.friends = friends;
+//	}
 }
