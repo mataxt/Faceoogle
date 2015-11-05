@@ -5,22 +5,21 @@ import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 
-
-
 @ManagedBean(name="registerBean")
 public class RegisterBean implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private String name;
-	private Date birthDate;
+	private Date birthday;
 	private String gender;
 	
-	public Date getBirthDate() {
-		return birthDate;
+	public Date getbirthday() {
+		return birthday;
 	}
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setbirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 	public String getGender() {
 		return gender;
@@ -28,7 +27,6 @@ public class RegisterBean implements Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
 	public String getUsername() {
 		return username;
 	}
@@ -48,11 +46,10 @@ public class RegisterBean implements Serializable{
 		this.name = name;
 	}
 	
-	public void register(){
-		System.out.println(this.name +"\n" +
-				 this.birthDate+ "\n" + this.gender+
-				this.username +"\n");
+	public void register() {
+		System.out.println(this.name + "\n" +
+				this.birthday + "\n" + 
+				this.gender +
+				this.username + "\n");
 	}
-
-
 }
