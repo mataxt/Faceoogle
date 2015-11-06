@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import logic.Register;
-
+@SessionScoped
 @ManagedBean(name="registerBean")
 public class RegisterBean implements Serializable {
 	
@@ -59,6 +60,6 @@ public class RegisterBean implements Serializable {
 	
 	public String register() {
 		Register.addUser(username, password, name, birthdate, gender);
-		return null;
+		return "index.xhtml";
 	}
 }

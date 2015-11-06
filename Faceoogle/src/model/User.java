@@ -24,7 +24,7 @@ public class User implements Serializable {
 	private String name;
 	private Date birthDate;
 	private String gender;
-//	private Set<User> friends;
+	private Set<User> friends;
 	
 	public User(String username, String password, String name, Date birthDate, String gender) {
 		super();
@@ -35,7 +35,7 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 	@Id
-	@Column(name = "Username")
+	@Column(name = "Username", nullable = false)
 	public String getUsername() {
 		return username;
 	}
@@ -44,7 +44,7 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	@Column(name = "Password")
+	@Column(name = "Password", nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -53,7 +53,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "Name")
+	@Column(name = "Name", nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -62,7 +62,7 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "BirthDate")
+	@Column(name = "BirthDate", nullable = false)
 	public Date getBirthDate() {
 		return birthDate;
 	}
@@ -71,7 +71,7 @@ public class User implements Serializable {
 		this.birthDate = birthDate;
 	}
 
-	@Column(name = "Gender")
+	@Column(name = "Gender", nullable = false)
 	public String getGender() {
 		return gender;
 	}
@@ -80,16 +80,16 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 
-//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinTable(
-//			name = "friends", joinColumns = {@JoinColumn(name = "username", nullable = false, updatable = false) }, 
-//			inverseJoinColumns = {@JoinColumn(name = "username", nullable = false, updatable = false) }
-//			)
-//	public Set<User> getFriends() {
-//		return this.friends;
-//	}
-//
-//	public void setFriends(Set<User> friends) {
-//		this.friends = friends;
-//	}
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "friends", joinColumns = {@JoinColumn(name = "User", nullable = false, updatable = false) }, 
+			inverseJoinColumns = {@JoinColumn(name = "Friend", nullable = false, updatable = false) }
+			)
+	public Set<User> getFriends() {
+		return this.friends;
+	}
+
+	public void setFriends(Set<User> friends) {
+		this.friends = friends;
+	}
 }
