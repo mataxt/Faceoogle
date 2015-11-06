@@ -1,7 +1,7 @@
 package beans;
 
 import java.io.Serializable;
-
+import logic.Login;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean(name="loginBean")
@@ -25,5 +25,13 @@ public class LoginBean implements Serializable {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String login(){
+		if(Login.login(username,password)){
+			return "index.xhtml";			
+		} else {
+			return "login.xhtml";		
+		}
 	}
 }

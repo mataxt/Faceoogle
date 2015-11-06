@@ -23,4 +23,21 @@ public class UserDB {
 		emf.close();
 
 	}
+
+	public static boolean checkUser(User usr) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
+		EntityManager em = emf.createEntityManager();
+		try {
+			String u = (String) em.createQuery("SELECT password FROM users as users WHERE users.username = ?1 ")
+					.setParameter(1, usr.getUsername()).getSingleResult();
+			System.out.println(u);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		emf.close();
+		return false;
+	}
 }

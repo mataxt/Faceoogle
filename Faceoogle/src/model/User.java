@@ -15,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Users", catalog = "faceoogle")
+@Table(name = "users", catalog = "faceoogle")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +25,12 @@ public class User implements Serializable {
 	private Date birthDate;
 	private String gender;
 	private Set<User> friends;
+	
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
 	
 	public User(String username, String password, String name, Date birthDate, String gender) {
 		super();

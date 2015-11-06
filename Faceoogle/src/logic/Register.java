@@ -9,7 +9,6 @@ public class Register {
 
 	public static void addUser(String username, String password, String name, Date birthdate, String gender) {
 		User usr = new User(username, password, name, birthdate, gender);
-		System.out.println("hello");
 		UserDB.addUser(usr);
 	}
 
