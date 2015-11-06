@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "users", catalog = "faceoogle")
 public class User implements Serializable {
@@ -26,12 +27,14 @@ public class User implements Serializable {
 	private String gender;
 	private Set<User> friends;
 	
+	public User(){}
+	
 	public User(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
-	
+
 	public User(String username, String password, String name, Date birthDate, String gender) {
 		super();
 		this.username = username;
@@ -40,6 +43,7 @@ public class User implements Serializable {
 		this.birthDate = birthDate;
 		this.gender = gender;
 	}
+	
 	@Id
 	@Column(name = "Username", nullable = false)
 	public String getUsername() {

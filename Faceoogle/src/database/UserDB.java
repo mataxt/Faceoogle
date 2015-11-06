@@ -19,27 +19,22 @@ public class UserDB {
 		} finally {
 			em.close();
 		}
-
 		emf.close();
 	}
 
 	public static boolean checkUser(User usr) {
-
+		boolean exists = false;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
-			//String u = (String) em.createQuery("SELECT password FROM users as users WHERE users.username = ?1 ").setParameter(1, usr.getUsername()).getSingleResult();
-			//em.createQuery("SELECT password FROM User as users WHERE User.username = ?1 ").setParameter(1, usr.getUsername()).getSingleResult();
-			String query = "from User where username = '" + usr.getUsername() + "' and password = '" + usr.getPassword() + "'";
-			
-			User u = em.createQuery(query, User.class).getSingleResult();
-		} catch (Exception e) {
-			e.printStackTrace();
+			String query = "from User where username = ?1 and password = ?2"; 
+			if (em.createQuery(query, User.class).setParameter(1, usr.getUsername()).setParameter(2, usr.getPassword()).getSingleResult() != null ){
+				exists = true;
+			} 
 		} finally {
 			em.close();
 		}
 		emf.close();
-		
-		return false;
+		return exists;
 	}
 }
