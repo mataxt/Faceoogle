@@ -6,17 +6,19 @@ import java.sql.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import logic.Login;
 import logic.Register;
+
 @SessionScoped
-@ManagedBean(name="registerBean")
-public class RegisterBean implements Serializable {
-	
+@ManagedBean(name="userBean")
+public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private String name;
 	private Date birthdate;
 	private String gender;
+
 	
 	public java.util.Date getBirthdate() {
 		return birthdate;
@@ -25,7 +27,7 @@ public class RegisterBean implements Serializable {
 	public void setBirthdate(java.util.Date birthdate) {
 		this.birthdate = new java.sql.Date(birthdate.getTime());
 	}
-	
+
 	public String getGender() {
 		return gender;
 	}
@@ -59,7 +61,22 @@ public class RegisterBean implements Serializable {
 	}
 	
 	public String register() {
-		Register.addUser(username, password, name, birthdate, gender);
-		return "index.xhtml";
+		if(Register.addUser(username, password, name, birthdate, gender)){
+			return "index.xhtml";
+		} else {
+			return "register.xhtml";
+		}
 	}
+	
+	public String login(){
+		if(Login.login(username,password)){
+			return "index.xhtml";			
+		} else {
+			return "login.xhtml";		
+		}
+	}
+	
+
+
+
 }

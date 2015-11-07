@@ -10,6 +10,26 @@ import javax.persistence.Persistence;
 import model.Log;
 
 public class LogDB {
+	public static Integer addLog(Log log) {
+		Integer logId = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.persist(log);
+			em.getTransaction().commit();
+			logId = log.getId();
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();				
+			}
+		} finally {
+			em.close();
+		}
+		emf.close();
+		return logId;
+	}
+	
 	public static List<Log> listUserLogs(String usrName) {
 		List<Log> logs = new ArrayList<Log>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
@@ -22,5 +42,22 @@ public class LogDB {
 		}
 		emf.close();
 		return logs;
+	}
+	
+	public static void removeLog(Log log) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		try {
+			em.createQuery("delete from Log l where l= ?1").setParameter(1, log).executeUpdate();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();				
+			}
+		} finally {
+			em.close();
+		}
+		emf.close();
 	}
 }
