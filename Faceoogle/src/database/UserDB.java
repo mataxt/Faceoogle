@@ -1,9 +1,13 @@
 package database;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+
 
 import model.User;
 
@@ -51,8 +55,8 @@ public class UserDB {
 	public static void removeUser(User usr) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
 		try {
+			em.getTransaction().begin();
 			em.createQuery("delete from User u where u= ?1").setParameter(1, usr).executeUpdate();
 			em.getTransaction().commit();
 		} catch (Exception e) {
@@ -63,5 +67,21 @@ public class UserDB {
 			em.close();
 		}
 		emf.close();
+	}
+
+	public static List<User> findByName(String name) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
+		EntityManager em = emf.createEntityManager();
+		List<User> users = new ArrayList<User>();
+		try {
+			users = em.createQuery("from User where name like CONCAT('%', :namesList, '%') order by name", User.class).setParameter("namesList", name).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();		
+		} finally {
+			em.close();
+		}
+		emf.close();
+		System.out.println(users.size());
+		return users;
 	}
 }
