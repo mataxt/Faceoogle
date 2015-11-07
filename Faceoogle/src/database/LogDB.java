@@ -35,7 +35,7 @@ public class LogDB {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
-			String query = "from Log where receiver = ?1"; 
+			String query = "from Log where receiver = ?1 order by timestamp"; 
 			logs = em.createQuery(query, Log.class).setParameter(1, usrName).getResultList();
 		} finally {
 			em.close();
