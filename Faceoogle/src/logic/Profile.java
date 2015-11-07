@@ -14,6 +14,5 @@ public class Profile {
 			lvm.add(new LogViewModel(log));
 		}
 		return lvm;
-		
 	}
 }
