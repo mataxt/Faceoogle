@@ -1,9 +1,9 @@
 <!DOCTYPE xhtml>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<head>
+<h:head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,9 +27,9 @@
 <script src="UI/js/bootstrap.min.js"></script>
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-</head>
+</h:head>
 
-<body id="page-top" class="index">
+<h:body id="page-top" class="index">
 
 	<!-- Navigation -->
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -70,40 +70,52 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2">
-
-					<p>THIS IS YOUR PROFILE PICTURE</p>
-
-					<p>THIS IS GENERAL INFORMATION ABOUT YOU</p>
-
-			<h:dataTable value="#{logBean.myLogs}" var="o"
-				styleClass="order-table" headerClass="order-table-header"
-				rowClasses="order-table-odd-row,order-table-even-row">
-
-					<h:column>
-						<!-- column header -->
-						<f:facet name="header"> writer </f:facet>
-						<!-- row record -->
-	    				#{o.writer}
-	    			</h:column>
-	
-					<h:column>
-						<f:facet name="header"> receiver </f:facet>
-	    				#{o.receiver}
-	    			</h:column>
-	
-					<h:column>
-						<f:facet name="header"> body </f:facet>
-	    				#{o.body}
-	    			</h:column>
-
-
-				</h:dataTable>
+				
+				<div class="col-lg-3">
+					
+					<p>Name: </p>
+					<p>Bla bla bla...</p>
+				
 				</div>
+				
+				<div class="col-lg-7">
+					
+					<h:dataTable value="#{logBean.myLogs}" var="o"
+			   			styleClass="table table-striped table-bordered">
+					
+					<h:column>
+						<f:facet name="header"> 
+							<p></p>
+						</f:facet>
+	    				<strong>
+	    					#{o.writer}
+	    				</strong>
+	    			</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<p></p>
+						</f:facet>
+	    				<i>
+	    					#{o.body}
+	    				</i>
+	    			</h:column>
+
+					</h:dataTable>
+										
+				</div>
+				
+				<div class="col-lg-2">
+					
+					<i class="icon-search"></i>
+        			<input type="search" class="form-control" placeholder="Search" />
+					
+				</div>
+
 			</div>
 		</div>
 
 	</section>
 
-</body>
-</html>
+</h:body>
+</h:html>
