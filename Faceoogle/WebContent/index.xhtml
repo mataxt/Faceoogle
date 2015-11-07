@@ -46,19 +46,7 @@
 				<a class="navbar-brand" href="index.xhtml">Faceoogle</a>
 			</div>
 			
-			<h:form>
-				<h:inputText size="20" value="#{userBean.searchName}">
-					<f:ajax event="keyup" render="nameList" />
-				</h:inputText>
-
-				<h:dataTable id="nameList" value="#{userBean.names}" var="n"
-					border="1">
-					<h:column>
-					<h:commandLink action="profile">#{n}</h:commandLink>
-					
-					</h:column>
-				</h:dataTable>
-			</h:form>
+			
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
@@ -85,6 +73,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
+					
 					<p>NEWS FEED HERE</p>
 
 				</div>

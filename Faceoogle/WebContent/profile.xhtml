@@ -50,7 +50,11 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="page-scroll"><a href="profile.xhtml">Profile</a></li>
+					<li class="page-scroll">
+						<h:form>
+							<a><h:commandLink action="#{userBean.gotoMyProfile}" value="Profile"></h:commandLink></a>
+						</h:form>
+					</li>
 					<li class="page-scroll"><a href="messages.xhtml">Messages</a></li>
 					<li class="page-scroll"><a href="login.xhtml">Logout</a></li>
 					
@@ -58,7 +62,7 @@
 			</div>
 		</div>
 	</nav>
-
+	
 	<!-- Section -->
 	<section id="contact">
 		<div class="container">
@@ -87,18 +91,14 @@
 						<f:facet name="header"> 
 							<p></p>
 						</f:facet>
-	    				<strong>
-	    					#{o.writer}
-	    				</strong>
+	    				<strong>#{o.writer}</strong>
 	    			</h:column>
 
 					<h:column>
 						<f:facet name="header">
 							<p></p>
 						</f:facet>
-	    				<i>
-	    					#{o.body}
-	    				</i>
+	    				<i>#{o.body}</i>
 	    			</h:column>
 
 					</h:dataTable>
@@ -107,8 +107,19 @@
 				
 				<div class="col-lg-2">
 					
-					<i class="icon-search"></i>
-        			<input type="search" class="form-control" placeholder="Search" />
+					<p>Search</p>
+					
+					<h:form>
+						<h:inputText size="20" value="#{userBean.searchName}" styleClass="form-control">
+							<f:ajax event="keyup" render="nameList" />
+						</h:inputText>
+
+						<h:dataTable id="nameList" value="#{userBean.names}" var="n" border="1" styleClass="form-control">
+							<h:column>
+								<h:commandLink action="#{userBean.gotoProfileUser(n)}">#{n}</h:commandLink>
+							</h:column>
+						</h:dataTable>
+					</h:form>
 					
 				</div>
 

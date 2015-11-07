@@ -88,5 +88,12 @@ public class UserBean implements Serializable {
 	public void setSearchName(String searchName) {
 		this.searchName = searchName;
 	}
-
+	
+	public String gotoProfileUser(String n) {
+		return "profile.xhtml?faces-redirect=true" + "&user=" + n;
+	}
+	
+	public String gotoMyProfile() {
+		return "profile.xhtml?faces-redirect=true" + "&user=" + username;
+	}
 }

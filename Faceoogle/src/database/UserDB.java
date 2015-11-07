@@ -81,7 +81,7 @@ public class UserDB {
 			em.close();
 		}
 		emf.close();
-		System.out.println(users.size());
+		
 		return users;
 	}
 }
