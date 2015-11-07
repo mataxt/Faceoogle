@@ -4,29 +4,29 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Faceoogle</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Faceoogle</title>
 
-<link href="UI/css/bootstrap.min.css" rel="stylesheet"></link>
-<link href="UI/css/master.css" rel="stylesheet"></link>
+	<link href="UI/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="UI/css/master.css" rel="stylesheet"></link>
 
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css"></link>
-<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css"></link>
-<link
-	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css"></link>
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css"></link>
+	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
+		rel="stylesheet" type="text/css"></link>
+	<link
+		href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+		rel="stylesheet" type="text/css"></link>
 
-<script src="UI/js/jquery.js"></script>
+	<script src="UI/js/jquery.js"></script>
 
-<script src="UI/js/bootstrap.min.js"></script>
-<script
-	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="UI/js/bootstrap.min.js"></script>
+	<script
+		src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 </h:head>
 
 <h:body id="page-top" class="index">
@@ -50,19 +50,18 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="page-scroll">
-						<h:form>
-							<a><h:commandLink action="#{userBean.gotoMyProfile}" value="Profile"></h:commandLink></a>
-						</h:form>
-					</li>
+					<li class="page-scroll"><h:form>
+							<a><h:commandLink action="#{userBean.gotoMyProfile}"
+									value="Profile"></h:commandLink></a>
+						</h:form></li>
 					<li class="page-scroll"><a href="messages.xhtml">Messages</a></li>
 					<li class="page-scroll"><a href="login.xhtml">Logout</a></li>
-					
+
 				</ul>
 			</div>
 		</div>
 	</nav>
-	
+
 	<!-- Section -->
 	<section id="contact">
 		<div class="container">
@@ -74,53 +73,55 @@
 				</div>
 			</div>
 			<div class="row">
-				
-				<div class="col-lg-3">
-					
-					<p>Name: </p>
-					<p>Bla bla bla...</p>
-				
-				</div>
-				
-				<div class="col-lg-7">
-					
-					<h:dataTable value="#{logBean.myLogs}" var="o"
-			   			styleClass="table table-striped table-bordered">
-					
-					<h:column>
-						<f:facet name="header"> 
-							<p></p>
-						</f:facet>
-	    				<strong>#{o.writer}</strong>
-	    			</h:column>
 
-					<h:column>
-						<f:facet name="header">
-							<p></p>
-						</f:facet>
-	    				<i>#{o.body}</i>
-	    			</h:column>
+				<div class="col-lg-3">
+
+					<p>Name:</p>
+					<p>Bla bla bla...</p>
+
+				</div>
+
+				<div class="col-lg-7">
+
+					<h:dataTable value="#{logBean.myLogs}" var="o"
+						styleClass="table table-striped table-bordered">
+
+						<h:column>
+							<f:facet name="header">
+								<p></p>
+							</f:facet>
+							<strong>#{o.writer}</strong>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<p></p>
+							</f:facet>
+							<i>#{o.body}</i>
+						</h:column>
 
 					</h:dataTable>
-										
+
 				</div>
-				
+
 				<div class="col-lg-2">
-					
+
 					<p>Search</p>
-					
+
 					<h:form>
-						<h:inputText size="20" value="#{userBean.searchName}" styleClass="form-control">
+						<h:inputText size="20" value="#{searchBean.searchName}"
+							styleClass="form-control">
 							<f:ajax event="keyup" render="nameList" />
 						</h:inputText>
 
-						<h:dataTable id="nameList" value="#{userBean.names}" var="n" border="1" styleClass="form-control">
-							<h:column>
-								<h:commandLink action="#{userBean.gotoProfileUser(n)}">#{n}</h:commandLink>
+						<h:dataTable id="nameList" value="#{searchBean.names}" var="n"
+							border="1" styleClass="form-control">
+							<h:column rendered="#{not empty searchBean.searchName}">
+								<h:commandLink action="#{searchBean.gotoProfileUser(n)}">#{n}</h:commandLink>
 							</h:column>
 						</h:dataTable>
 					</h:form>
-					
+
 				</div>
 
 			</div>

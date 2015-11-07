@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
-
 import model.User;
 
 public class UserDB {
@@ -23,7 +22,7 @@ public class UserDB {
 			registered = true;
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();				
+				em.getTransaction().rollback();
 			}
 			registered = false;
 		} finally {
@@ -61,7 +60,7 @@ public class UserDB {
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();				
+				em.getTransaction().rollback();
 			}
 		} finally {
 			em.close();
@@ -69,19 +68,20 @@ public class UserDB {
 		emf.close();
 	}
 
-	public static List<User> findByName(String name) {
+	public static List<User> findByUserName(String username) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		List<User> users = new ArrayList<User>();
 		try {
-			users = em.createQuery("from User where name like CONCAT('%', :namesList, '%') order by name", User.class).setParameter("namesList", name).getResultList();
+			users = em.createQuery("from User where username like CONCAT('%', :namesList, '%') order by username",
+					User.class).setParameter("namesList",username).getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();		
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
 		emf.close();
-		
+
 		return users;
 	}
 }

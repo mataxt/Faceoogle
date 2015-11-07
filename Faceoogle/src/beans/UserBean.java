@@ -2,7 +2,6 @@ package beans;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -19,7 +18,7 @@ public class UserBean implements Serializable {
 	private String name;
 	private Date birthdate;
 	private String gender;
-	private String searchName;
+
 	
 	public java.util.Date getBirthdate() {
 		return birthdate;
@@ -75,22 +74,6 @@ public class UserBean implements Serializable {
 		} else {
 			return "login.xhtml";
 		}
-	}
-
-	public ArrayList<String> getNames() {
-		return UserLogic.getUserNamesByName(searchName);
-	}
-
-	public String getSearchName() {
-		return searchName;
-	}
-
-	public void setSearchName(String searchName) {
-		this.searchName = searchName;
-	}
-	
-	public String gotoProfileUser(String n) {
-		return "profile.xhtml?faces-redirect=true" + "&user=" + n;
 	}
 	
 	public String gotoMyProfile() {

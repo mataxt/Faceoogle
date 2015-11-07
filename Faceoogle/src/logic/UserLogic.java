@@ -20,10 +20,10 @@ public class UserLogic {
 
 	public static ArrayList<String> getUserNamesByName(String name) {
 		ArrayList<String> names = new ArrayList<String>();
-		List<User> users = UserDB.findByName(name);
+		List<User> users = UserDB.findByUserName(name);
 		
 		for (User user : users) {
-			names.add(user.getName());
+			names.add(user.getUsername());
 		}
 
 		return names;
