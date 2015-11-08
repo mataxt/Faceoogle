@@ -26,7 +26,9 @@ public class LogBean implements Serializable {
 		myLogs = Profile.getLogs(usr);
 		return myLogs;
 	}
-
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
 	public String getMessageLogs() {
 		return messageLogs;
 	}
@@ -44,7 +46,5 @@ public class LogBean implements Serializable {
 		return null;
 	}
 	
-	public void setUserBean(UserBean userBean) {
-		this.userBean = userBean;
-	}
+
 }

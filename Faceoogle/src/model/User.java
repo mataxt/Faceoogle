@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
@@ -17,9 +16,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users", catalog = "faceoogle")
-public class User implements Serializable {
+public class User {
 
-	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private String name;
