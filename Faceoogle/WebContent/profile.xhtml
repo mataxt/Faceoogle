@@ -50,13 +50,13 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="page-scroll"><h:form>
-							<a><h:commandLink action="#{userBean.gotoMyProfile}"
-									value="Profile"></h:commandLink></a>
-						</h:form></li>
-					<li class="page-scroll"><a href="messages.xhtml">Messages</a></li>
-					<li class="page-scroll"><a href="login.xhtml">Logout</a></li>
-
+					<h:form>
+						<li class="page-scroll"><h:commandLink
+								action="#{userBean.gotoMyProfile}" value="Profile" /></li>
+						<li class="page-scroll"><a href="messages.xhtml">Messages</a></li>
+						<li class="page-scroll"><h:commandLink
+								action="#{userBean.logout}" value="Logout" /></li>
+					</h:form>
 				</ul>
 			</div>
 		</div>
@@ -82,8 +82,12 @@
 				</div>
 
 				<div class="col-lg-7">
-
-					<h:dataTable value="#{logBean.myLogs}" var="o"
+					<h:commandButton id="refresh" size="20" value="Refresh"
+						styleClass="form-control">
+						<f:param name="user" value="#{param['user']}"></f:param>
+						<f:ajax render="logList" execute="refresh"/>
+					</h:commandButton>
+					<h:dataTable id="logList" value="#{logBean.logs}" var="o"
 						styleClass="table table-striped table-bordered">
 
 						<h:column>
@@ -101,7 +105,6 @@
 						</h:column>
 
 					</h:dataTable>
-
 				</div>
 
 				<div class="col-lg-2">

@@ -10,14 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import logic.Profile;
 import vm.LogViewModel;
 
-@ManagedBean(name="logBean")
-public class LogBean implements Serializable{
+@ManagedBean(name = "logBean")
+public class LogBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<LogViewModel> myLogs;
 
-	public List<LogViewModel> getMyLogs(){
-		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		myLogs = Profile.getLogs(req.getParameter("user"));
+	public List<LogViewModel> getLogs() {
+		String usr = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext()
+		        .getRequest()).getParameter("user");
+		myLogs = Profile.getLogs(usr);
 		return myLogs;
 	}
 }

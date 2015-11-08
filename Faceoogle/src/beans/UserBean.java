@@ -5,7 +5,7 @@ import java.sql.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
+import javax.faces.context.FacesContext;
 
 import logic.UserLogic;
 
@@ -18,6 +18,7 @@ public class UserBean implements Serializable {
 	private String name;
 	private Date birthdate;
 	private String gender;
+	private String loginMessage,registerMessage;
 
 	
 	public java.util.Date getBirthdate() {
@@ -59,24 +60,49 @@ public class UserBean implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getLoginMessage() {
+		return loginMessage;
+	}
 
+	public void setLoginMessage(String loginMessage) {
+		this.loginMessage = loginMessage;
+	}
+
+	public String getRegisterMessage() {
+		return registerMessage;
+	}
+
+	public void setRegisterMessage(String registerMessage) {
+		this.registerMessage = registerMessage;
+	}
+	
 	public String register() {
 		if (UserLogic.addUser(username, password, name, birthdate, gender)) {
+			registerMessage = "";
 			return "index.xhtml";
 		} else {
+			registerMessage = "Please fill in all the fields in the correct format";
 			return "register.xhtml";
 		}
 	}
 
 	public String login() {
 		if (UserLogic.login(username, password)) {
+			loginMessage = "";
 			return "index.xhtml";
 		} else {
+			loginMessage = "Wrong username or password";
 			return "login.xhtml";
 		}
+	}
+	public String logout(){
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "login.xhtml";
 	}
 	
 	public String gotoMyProfile() {
 		return "profile.xhtml?faces-redirect=true" + "&user=" + username;
 	}
+
+
 }

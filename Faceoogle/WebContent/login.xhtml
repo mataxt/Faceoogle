@@ -73,27 +73,30 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
+                <p style="color:red"><b>#{userBean.loginMessage}</b> </p> <br/><br/>
                     <h:form name="sentMessage" id="contactForm" novalidation="true">
                         <div class="row control-group">
 							Username
+								 <h:message for="username" style="color:red" />
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
 								<h:inputText value="#{userBean.username}" type="text"
 									class="form-control" id="username"
 									required="true"
-									data-validation-required-message="Please enter your username.">
+									requiredMessage="*You must enter a username">
 								</h:inputText>
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>
 						<div class="row control-group">
 							Password
+								<h:message for="password" style="color:red" />
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
 								<h:inputSecret value="#{userBean.password}" type="password"
 									class="form-control" id="password"
 									required="true"
-									data-validation-required-message="Please enter a valid password.">
+									requiredMessage="*You must enter a password">
 								</h:inputSecret>
 								<p class="help-block text-danger"></p>
 							</div>

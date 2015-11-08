@@ -2,24 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-	
+
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content=""/>
-<meta name="author" content=""/>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 <title>Faceoogle</title>
 
-<link href="UI/css/bootstrap.min.css" rel="stylesheet"> </link>
-<link href="UI/css/master.css" rel="stylesheet"> </link>
+<link href="UI/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="UI/css/master.css" rel="stylesheet"></link>
 
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css"> </link>
+	type="text/css"></link>
 <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css"> </link>
-<link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css"> </link>
+	rel="stylesheet" type="text/css"></link>
+<link
+	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css"></link>
 
 <script src="UI/js/jquery.js"></script>
 
@@ -59,7 +60,7 @@
 	<!-- Contact Section -->
 	<section id="contact">
 		<div class="container">
-		
+
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<br />
@@ -67,51 +68,58 @@
 					<br />
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
+					<p style="color: red">
+						<b>#{userBean.registerMessage}</b>
+					</p>
+					<br />
+					<br />
 					<h:form name="sentMessage" id="contactForm" novalidation="true">
 						<div class="row control-group">
 							Full Name
+							<h:message for="name" style="color:red" />
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
 								<h:inputText value="#{userBean.name}" type="text"
 									class="form-control" placeholder="Full Name" id="name"
-									required="true"
-									data-validation-required-message="Please enter your name.">
+									required="true" requiredMessage="*Please enter your name.">
 								</h:inputText>
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>
 						<div class="row control-group">
 							Username
+							<h:message for="username" style="color:red" />
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
 								<h:inputText value="#{userBean.username}" type="text"
-									class="form-control" id="username"
-									required="true"
-									data-validation-required-message="Please enter your username.">
+									class="form-control" id="username" required="true"
+									requiredMessage="*Please enter your username.">
 								</h:inputText>
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>
 						<div class="row control-group">
 							Password
+							<h:message for="password" style="color:red" />
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
 								<h:inputSecret value="#{userBean.password}" type="password"
-									class="form-control" id="password"
-									required="true"
-									data-validation-required-message="Please enter a valid password.">
+									class="form-control" id="password" required="true"
+									requiredMessage="*Please enter a valid password.">
 								</h:inputSecret>
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>
 						<div class="row control-group">
-							Gender 
+							Gender
+							<h:message for="gender" style="color:red" />
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
-								<h:selectOneRadio value="#{userBean.gender}"> Male
+								<h:selectOneRadio  id="gender" value="#{userBean.gender}"
+									require="true" validatorMessage="*Please pick a gender"> Male
 									<f:selectItem itemValue="Male" itemLabel="Male" /> Female
 									<f:selectItem itemValue="Female" itemLabel="Female" />
 								</h:selectOneRadio>
@@ -120,22 +128,25 @@
 						</div>
 						<div class="row control-group">
 							Birthdate (yyyy-mm-dd)
+							<h:message for="date" style="color:red"></h:message>
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
 								<h:inputText id="date" value="#{userBean.birthdate}"
-									required="true" label="Birthdate">
+									required="true" requiredMessage="*please enter your birthdate"
+									label="Birthdate">
 									<f:convertDateTime pattern="yyyy-MM-dd" />
 								</h:inputText>
-								<h:message for="date" style="color:red"></h:message>
+
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>
 
 						<br />
-						
+
 						<div class="row">
 							<div class="form-group col-xs-12">
-								<h:commandButton action="#{userBean.register}" type="submit" class="btn btn-success btn-lg" value="Register"/>
+								<h:commandButton action="#{userBean.register}" type="submit"
+									class="btn btn-success btn-lg" value="Register" />
 							</div>
 						</div>
 					</h:form>

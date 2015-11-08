@@ -17,7 +17,6 @@ public class SearchBean implements Serializable {
 	private String searchName;
 
 	public String gotoProfileUser(String n) {
-		System.out.println(n);
 		return "profile.xhtml?faces-redirect=true" + "&user=" + n;
 	}
 
