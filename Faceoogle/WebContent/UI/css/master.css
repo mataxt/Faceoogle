@@ -14,13 +14,11 @@ p.small {
     font-size: 16px;
 }
 
-a,
-a:hover,
-a:focus,
-a:active,
+a {
+	color: #18bc9c;
+},
 a.active {
-    outline: 0;
-    color: #18bc9c;
+    text-decoration: underline;
 }
 
 h1,
@@ -454,4 +452,10 @@ footer .footer-below {
 .portfolio-modal .modal-backdrop {
     display: none;
     opacity: 0;
+}
+
+th, td {
+    border: 1px solid black;
+    overflow: hidden;
+    width: 100px;
 }

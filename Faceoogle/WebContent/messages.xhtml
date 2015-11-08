@@ -47,19 +47,18 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                	<li class="page-scroll">
-                        <a href="profile.xhtml">Profile</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="messages.xhtml">Messages</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="login.xhtml">Logout</a>
-                    </li>
-                </ul>
-            </div>
+            <div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<h:form id="navForm">
+						<li class="page-scroll"><h:commandLink
+								action="#{userBean.gotoMyProfile}" value="Profile" /></li>
+						<li class="page-scroll"><a href="messages.xhtml">Messages</a></li>
+						<li class="page-scroll"><h:commandLink
+								action="#{userBean.logout}" value="Logout" /></li>
+					</h:form>
+				</ul>
+			</div>
         </div> 
     </nav>
     
@@ -68,7 +67,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <br />
+                    <br /><br />
                     <h2>Create message</h2>
                     <br />
                 </div>

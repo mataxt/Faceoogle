@@ -26,6 +26,6 @@ public class FriendBean implements Serializable {
 	
 	public boolean isFriend(String user){
 		System.out.println("\n\nISFIREND HERE: " + user + " \n\n");
-		return true;
+		return user.equals("1");
 	}
 }

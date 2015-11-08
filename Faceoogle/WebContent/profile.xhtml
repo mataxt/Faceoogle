@@ -76,38 +76,60 @@
 				<div class="col-lg-3">
 					<h:form id="friendForm">
 						<h:commandButton
-							rendered="#{friendBean.isFriend(param['user'])}"
+							rendered="#{friendBean.isFriend(param['user']) eq 'false'}"
 							id="add" size="20" value="Add as Friend"
 							styleClass="form-control btn btn-success"
 							action="#{friendBean.addFriend}">
-							<f:param name="add" value="#{param['user']}"></f:param>
+							<f:param name="user" value="#{param['user']}"></f:param>
 							<f:ajax />
 						</h:commandButton>
-
+						
 						<h:commandButton
 							rendered="#{friendBean.isFriend(param['user'])}"
 							id="remove" size="20" value="Remove Friend"
 							styleClass="form-control btn btn-danger"
 							action="#{friendBean.removeFriend}">
-							<f:param name="remove" value="#{param['user']}"></f:param>
+							<f:param name="user" value="#{param['user']}"></f:param>
 							<f:ajax />
 						</h:commandButton>
 					</h:form>
-					<p>Name:</p>
-					<p>Bla bla bla...</p>
-
+					
+					<p>Username: <h:outputText value="#{profileBean.vm.username}" /></p>
+					<p>Name: <h:outputText value="#{profileBean.vm.name}" /></p>
+					<p>Birthday: <h:outputText value="#{profileBean.vm.birthDate}" /></p>
+					<p>Gender: <h:outputText value="#{profileBean.vm.gender}" /></p>
 				</div>
 
 				<div class="col-lg-7">
-					<h:form id="refreshForm">
-						<h:commandButton id="refresh" size="20" value="Refresh"
-							styleClass="form-control">
-							<f:param name="user" value="#{param['user']}"></f:param>
-							<f:ajax render="logList" execute="refresh" />
-						</h:commandButton>
+					 <h:form name="sentMessage" id="contactForm" novalidation="true">
+						<div class="row control-group">
+                        	wat u DOIN'?
+                            <div 
+                           		class="form-group col-xs-12 floating-label-form-group controls">
+                                <h:inputTextarea value="#{logBean.messageLogs}" rows="2" 
+                                	class="form-control"
+                                    required="true" 
+                                    id="message" 
+                                    data-validation-required-message="Please enter a message.">
+                                </h:inputTextarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        
+                        <br />
+						
+						<div class="row">
+							<div class="form-group">
+								<h:commandButton id="sendLog" action="#{logBean.sendWriteLog()}" type="submit" class="btn btn-primary btn-sm" value="Send">
+									<f:param name="user" value="#{param['user']}"></f:param>
+								</h:commandButton>
+							</div>
+						</div>
 					</h:form>
-					<h:dataTable id="logList" value="#{logBean.logs}" var="o"
-						styleClass="table table-striped table-bordered">
+				
+					<h:dataTable id="logList" value="#{logBean.logs}" var="o" cellspacing="0"
+						styleClass="table table-striped table-bordered"
+						>
 
 						<h:column>
 							<f:facet name="header">
@@ -127,7 +149,14 @@
 				</div>
 
 				<div class="col-lg-2">
-
+					<h:form id="refreshForm">
+						<h:commandButton id="refresh" value="Refresh"
+							styleClass="form-control btn btn-default">
+							<f:param name="user" value="#{param['user']}"></f:param>
+							<f:ajax render="logList" execute="refresh" />
+						</h:commandButton>
+					</h:form>
+					
 					<p>Search</p>
 
 					<h:form id="searchForm">

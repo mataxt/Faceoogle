@@ -11,6 +11,7 @@ import model.Log;
 
 public class LogDB {
 	public static Integer addLog(Log log) {
+		System.out.println("NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW: " + log.getBody());
 		Integer logId = null;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();

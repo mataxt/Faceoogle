@@ -18,7 +18,7 @@ public class UserBean implements Serializable {
 	private String name;
 	private Date birthdate;
 	private String gender;
-	private String loginMessage,registerMessage;
+	private String loginMessage, registerMessage;
 
 	
 	public java.util.Date getBirthdate() {
