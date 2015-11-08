@@ -100,6 +100,8 @@ public class UserBean implements Serializable {
 		return "login.xhtml";
 	}
 	
+
+	
 	public String gotoMyProfile() {
 		return "profile.xhtml?faces-redirect=true" + "&user=" + username;
 	}

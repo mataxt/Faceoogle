@@ -50,7 +50,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<h:form>
+					<h:form id="navForm">
 						<li class="page-scroll"><h:commandLink
 								action="#{userBean.gotoMyProfile}" value="Profile" /></li>
 						<li class="page-scroll"><a href="messages.xhtml">Messages</a></li>
@@ -67,26 +67,45 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<br />
+					<br /> <br />
 					<h2>Profile</h2>
 					<br />
 				</div>
 			</div>
 			<div class="row">
-
 				<div class="col-lg-3">
+					<h:form id="friendForm">
+						<h:commandButton
+							rendered="#{friendBean.isFriend(param['user'])}"
+							id="add" size="20" value="Add as Friend"
+							styleClass="form-control btn btn-success"
+							action="#{friendBean.addFriend}">
+							<f:param name="add" value="#{param['user']}"></f:param>
+							<f:ajax />
+						</h:commandButton>
 
+						<h:commandButton
+							rendered="#{friendBean.isFriend(param['user'])}"
+							id="remove" size="20" value="Remove Friend"
+							styleClass="form-control btn btn-danger"
+							action="#{friendBean.removeFriend}">
+							<f:param name="remove" value="#{param['user']}"></f:param>
+							<f:ajax />
+						</h:commandButton>
+					</h:form>
 					<p>Name:</p>
 					<p>Bla bla bla...</p>
 
 				</div>
 
 				<div class="col-lg-7">
-					<h:commandButton id="refresh" size="20" value="Refresh"
-						styleClass="form-control">
-						<f:param name="user" value="#{param['user']}"></f:param>
-						<f:ajax render="logList" execute="refresh"/>
-					</h:commandButton>
+					<h:form id="refreshForm">
+						<h:commandButton id="refresh" size="20" value="Refresh"
+							styleClass="form-control">
+							<f:param name="user" value="#{param['user']}"></f:param>
+							<f:ajax render="logList" execute="refresh" />
+						</h:commandButton>
+					</h:form>
 					<h:dataTable id="logList" value="#{logBean.logs}" var="o"
 						styleClass="table table-striped table-bordered">
 
@@ -111,7 +130,7 @@
 
 					<p>Search</p>
 
-					<h:form>
+					<h:form id="searchForm">
 						<h:inputText size="20" value="#{searchBean.searchName}"
 							styleClass="form-control">
 							<f:ajax event="keyup" render="nameList" />
