@@ -31,7 +31,7 @@ public class FriendBean implements Serializable {
 	public String removeFriend() {
 		String user = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
 				.getParameter("user");
-		System.out.println("\n\nREMOVE HERE: " + user + " \n\n");
+		Profile.removeFriend(userBean.getUsername(), user);
 		return null;
 	}
 

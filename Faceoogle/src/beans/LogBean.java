@@ -15,6 +15,7 @@ import vm.LogViewModel;
 public class LogBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<LogViewModel> myLogs;
+	private List<LogViewModel> myFeed;
 	private String messageLogs;
 	
 	@ManagedProperty(value = "#{userBean}")
@@ -26,9 +27,15 @@ public class LogBean implements Serializable {
 		myLogs = Profile.getLogs(usr);
 		return myLogs;
 	}
+	
+	public List<LogViewModel> getFeed() {
+		myFeed = Profile.getFeed(userBean.getUsername());
+		return myFeed;
+	}
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
 	}
+	
 	public String getMessageLogs() {
 		return messageLogs;
 	}
@@ -41,10 +48,17 @@ public class LogBean implements Serializable {
 		String receiver = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext()
 		        .getRequest()).getParameter("user");
 		Profile.writeLog(userBean.getUsername(), receiver, messageLogs);
-		System.out.println("HELLO N00B: " + messageLogs);
 		
 		return null;
 	}
 	
+	public String sendFeedLog() {
+		Profile.writeLog(userBean.getUsername(), userBean.getUsername(), messageLogs);
+		
+		return null;
+	}
 
+	public void setMyFeed(List<LogViewModel> myFeed) {
+		this.myFeed = myFeed;
+	}
 }

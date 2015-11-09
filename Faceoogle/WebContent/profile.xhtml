@@ -81,7 +81,7 @@
 							styleClass="form-control btn btn-success"
 							action="#{friendBean.addFriend}">
 							<f:param name="user" value="#{param['user']}"></f:param>
-							<f:ajax reRender="friendForm"/>
+							<f:ajax render="@all" />
 						</h:commandButton>
 						
 						<h:commandButton
@@ -90,7 +90,7 @@
 							styleClass="form-control btn btn-danger"
 							action="#{friendBean.removeFriend}">
 							<f:param name="user" value="#{param['user']}"></f:param>
-							<f:ajax reRender="friendForm"/>
+							<f:ajax render="@all" />
 						</h:commandButton>
 					</h:form>
 					
@@ -101,9 +101,9 @@
 				</div>
 
 				<div class="col-lg-7">
-					 <h:form name="sentMessage" id="contactForm" novalidation="true">
+					 <h:form id="contactForm" novalidation="true" rendered="#{friendBean.isMyFriend eq 'KNOWN' or friendBean.isMyFriend eq 'OWN'}">
 						<div class="row control-group">
-                        	wat u DOIN'?
+                        	wat u DOIN' today?
                             <div 
                            		class="form-group col-xs-12 floating-label-form-group controls">
                                 <h:inputTextarea value="#{logBean.messageLogs}" rows="2" 
@@ -127,7 +127,7 @@
 						</div>
 					</h:form>
 				
-					<h:dataTable id="logList" value="#{logBean.logs}" var="o" cellspacing="0"
+					<h:dataTable id="logList" value="#{logBean.logs}" rendered="#{not empty logBean.logs}" var="o" cellspacing="0"
 						styleClass="table table-striped table-bordered"
 						>
 

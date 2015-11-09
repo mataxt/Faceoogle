@@ -48,6 +48,7 @@ public class UserDB {
 			em.close();
 		}
 		emf.close();
+	
 		return exists;
 	}
 
@@ -81,7 +82,7 @@ public class UserDB {
 			em.close();
 		}
 		emf.close();
-
+		
 		return users;
 	}
 }

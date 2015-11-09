@@ -1,30 +1,24 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "users", catalog = "faceoogle")
-public class User {
-
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private String name;
 	private Date birthDate;
 	private String gender;
-	private List<User> friends;
 	
-	public User(){}
+	public User() {}
 	
 	public User(String username, String password) {
 		super();
@@ -85,19 +79,6 @@ public class User {
 
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "friends", catalog="faceoogle", joinColumns = {@JoinColumn(name = "User", nullable = false, updatable = false) }, 
-			inverseJoinColumns = {@JoinColumn(name = "Friend", nullable = false, updatable = false) }
-			)
-	public List<User> getFriends() {
-		return this.friends;
-	}
-
-	public void setFriends(List<User> friends) {
-		this.friends = friends;
 	}
 	
 	@Override

@@ -67,17 +67,93 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<br /><br />
-					<h2>News</h2>
+					<br /> <br />
+					<h2>Feed</h2>
 					<br />
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2">
+				<div class="col-lg-3">
+				</div>
+
+				<div class="col-lg-7">
+					 <h:form name="sentMessage" id="contactForm" novalidation="true">
+						<div class="row control-group">
+                        	wat u DOIN' today?
+                            <div 
+                           		class="form-group col-xs-12 floating-label-form-group controls">
+                                <h:inputTextarea value="#{logBean.messageLogs}" rows="2" 
+                                	class="form-control"
+                                    required="true" 
+                                    id="message" 
+                                    data-validation-required-message="Please enter a message.">
+                                </h:inputTextarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        
+                        <br />
+						
+						<div class="row">
+							<div class="form-group">
+								<h:commandButton id="sendLog" action="#{logBean.sendFeedLog()}" type="submit" class="btn btn-primary btn-sm" value="Send"/>
+							</div>
+						</div>
+					</h:form>
+				
+					<h:dataTable id="feedList" value="#{logBean.feed}" rendered="#{not empty logBean.feed}" var="o" cellspacing="0"
+						styleClass="table table-striped table-bordered">
+
+						<h:column>
+							<f:facet name="header">
+								<p>From</p>
+							</f:facet>
+							<strong>#{o.writer}</strong>
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<p>To</p>
+							</f:facet>
+							<strong>#{o.receiver}</strong>
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<p></p>
+							</f:facet>
+							<i>#{o.body}</i>
+						</h:column>
+
+					</h:dataTable>
+				</div>
+
+				<div class="col-lg-2">
+					<h:form id="refreshForm">
+						<h:commandButton id="refresh" value="Refresh"
+							styleClass="form-control btn btn-default">
+							<f:ajax render="feedList" execute="refresh" />
+						</h:commandButton>
+					</h:form>
 					
-					<p>NEWS FEED HERE</p>
+					<p>Search</p>
+
+					<h:form id="searchForm">
+						<h:inputText size="20" value="#{searchBean.searchName}"
+							styleClass="form-control">
+							<f:ajax event="keyup" render="nameList" />
+						</h:inputText>
+
+						<h:dataTable id="nameList" value="#{searchBean.names}" var="n"
+							border="1" styleClass="form-control">
+							<h:column rendered="#{not empty searchBean.searchName}">
+								<h:commandLink action="#{searchBean.gotoProfileUser(n)}">#{n}</h:commandLink>
+							</h:column>
+						</h:dataTable>
+					</h:form>
 
 				</div>
+
 			</div>
 		</div>
 

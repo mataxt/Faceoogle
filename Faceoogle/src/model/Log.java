@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,18 +12,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
-
 @Entity
 @Table(name = "logs", catalog = "faceoogle")
-public class Log {
+public class Log implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String writer;
 	private String receiver;
 	private String body;
 	private String timesamp;
 
-	public Log() {
-	}
+	public Log() {}
 
 	public Log(String writer, String receiver, String body) {
 		super();

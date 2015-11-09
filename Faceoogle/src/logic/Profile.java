@@ -6,6 +6,7 @@ import java.util.List;
 import database.FriendDB;
 import database.LogDB;
 import database.UserDB;
+import model.Friend;
 import model.Log;
 import model.User;
 import vm.LogViewModel;
@@ -24,6 +25,19 @@ public class Profile {
 		return lvm;
 	}
 
+	public static List<LogViewModel> getFeed(String username) {
+		User usr = new User();
+		usr.setUsername(username);
+		List<LogViewModel> lvm = new ArrayList<LogViewModel>();
+		List<Log> original = LogDB.listUserFeed(usr);
+		
+		for (Log log : original) {
+			log.setBody(log.getBody().replaceAll("(.{60})", "$1\n"));
+			lvm.add(new LogViewModel(log));
+		}
+		return lvm;
+	}
+	
 	public static void writeLog(String username, String receiver, String messageLogs) {
 		Log log = new Log(username, receiver, messageLogs);
 		LogDB.addLog(log);
@@ -39,16 +53,15 @@ public class Profile {
 	}
 
 	public static void addFriend(String user, String friend) {
-		User usr = new User(),frnd = new User();
-		usr.setUsername(user);
+		Friend frd = new Friend(user, friend);
 		
-		frnd.setUsername(friend);
+		FriendDB.addFriend(frd);
+	}
+	
+	public static void removeFriend(String user, String friend) {
+		Friend frd = new Friend(user, friend);
 		
-		List<User> frndlst = new ArrayList<User>();
-		frndlst.add(frnd);
-		usr.setFriends(frndlst);
-		
-		FriendDB.addFriend(usr);
+		FriendDB.removeFriend(frd);
 	}
 	
 	public static String isFriend(String user, String friend) {
