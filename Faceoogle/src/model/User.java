@@ -1,8 +1,7 @@
 package model;
 
 import java.sql.Date;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +22,7 @@ public class User {
 	private String name;
 	private Date birthDate;
 	private String gender;
-	private Set<User> friends;
+	private List<User> friends;
 	
 	public User(){}
 	
@@ -90,14 +89,19 @@ public class User {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(
-			name = "friends", joinColumns = {@JoinColumn(name = "User", nullable = false, updatable = false) }, 
+			name = "friends", catalog="faceoogle", joinColumns = {@JoinColumn(name = "User", nullable = false, updatable = false) }, 
 			inverseJoinColumns = {@JoinColumn(name = "Friend", nullable = false, updatable = false) }
 			)
-	public Set<User> getFriends() {
+	public List<User> getFriends() {
 		return this.friends;
 	}
 
-	public void setFriends(Set<User> friends) {
+	public void setFriends(List<User> friends) {
 		this.friends = friends;
+	}
+	
+	@Override
+	public String toString(){
+		return username;
 	}
 }

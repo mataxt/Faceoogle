@@ -4,25 +4,27 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import logic.Profile;
-
+@SessionScoped
 @ManagedBean(name = "friendBean")
 public class FriendBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String isMyFriend;
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
-	
+
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
 	}
-	
+
 	public String addFriend() {
 		String user = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
 				.getParameter("user");
-		System.out.println("\n\nADD HERE: " + user + " \n\n");
+		Profile.addFriend(userBean.getUsername(), user);
 		return null;
 	}
 
@@ -32,9 +34,15 @@ public class FriendBean implements Serializable {
 		System.out.println("\n\nREMOVE HERE: " + user + " \n\n");
 		return null;
 	}
-	
-	public boolean isFriend(String user){
-		System.out.println("\n\nISFIREND HERE: " + user + " \n\n");
-		return Profile.isFriend(userBean.getUsername(), user);
+
+	public String getIsMyFriend() {
+		String user = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+				.getParameter("user");
+		isMyFriend = Profile.isFriend(userBean.getUsername(), user);
+		return isMyFriend;
+	}
+
+	public void setIsMyFriend(String isMyFriend) {
+		this.isMyFriend = isMyFriend;
 	}
 }

@@ -76,21 +76,21 @@
 				<div class="col-lg-3">
 					<h:form id="friendForm">
 						<h:commandButton
-							rendered="#{friendBean.isFriend(param['user']) eq 'false'}"
+							rendered="#{friendBean.isMyFriend eq 'UNKNOWN' and friendBean.isMyFriend ne 'OWN'}"
 							id="add" size="20" value="Add as Friend"
 							styleClass="form-control btn btn-success"
 							action="#{friendBean.addFriend}">
 							<f:param name="user" value="#{param['user']}"></f:param>
-							<f:ajax />
+							<f:ajax reRender="friendForm"/>
 						</h:commandButton>
 						
 						<h:commandButton
-							rendered="#{friendBean.isFriend(param['user'])}"
+							rendered="#{friendBean.isMyFriend eq 'KNOWN' and friendBean.isMyFriend ne 'OWN'}"
 							id="remove" size="20" value="Remove Friend"
 							styleClass="form-control btn btn-danger"
 							action="#{friendBean.removeFriend}">
 							<f:param name="user" value="#{param['user']}"></f:param>
-							<f:ajax />
+							<f:ajax reRender="friendForm"/>
 						</h:commandButton>
 					</h:form>
 					

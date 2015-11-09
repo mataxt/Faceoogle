@@ -16,7 +16,7 @@ public class Profile {
 	public static List<LogViewModel> getLogs(String receiver) {
 		List<LogViewModel> lvm = new ArrayList<LogViewModel>();
 		List<Log> original = LogDB.listUserLogs(receiver);
-
+		
 		for (Log log : original) {
 			log.setBody(log.getBody().replaceAll("(.{60})", "$1\n"));
 			lvm.add(new LogViewModel(log));
@@ -35,11 +35,29 @@ public class Profile {
 		if (!usrInfo.isEmpty()) {
 			vm = new UserViewModel(UserDB.findByUserName(user).get(0));
 		}
-
 		return vm;
 	}
 
-	public static boolean isFriend(String user, String friend) {
-		return FriendDB.getFriends(user).contains(friend);
+	public static void addFriend(String user, String friend) {
+		User usr = new User(),frnd = new User();
+		usr.setUsername(user);
+		
+		frnd.setUsername(friend);
+		
+		List<User> frndlst = new ArrayList<User>();
+		frndlst.add(frnd);
+		usr.setFriends(frndlst);
+		
+		FriendDB.addFriend(usr);
+	}
+	
+	public static String isFriend(String user, String friend) {
+		if (user.equals(friend)) {
+			return "OWN";
+		} else if ((FriendDB.getFriends(user).toString()).contains(friend)) {
+			return "KNOWN";
+		} else {
+			return "UNKNOWN";
+		}
 	}
 }
