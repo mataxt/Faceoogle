@@ -4,16 +4,19 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import logic.Profile;
-@SessionScoped
+
+@ViewScoped
 @ManagedBean(name = "friendBean")
 public class FriendBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String isMyFriend;
+	private String paramUser = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+			.getRequest()).getParameter("user");;
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
 
@@ -22,27 +25,21 @@ public class FriendBean implements Serializable {
 	}
 
 	public String addFriend() {
-		String user = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-				.getParameter("user");
-		Profile.addFriend(userBean.getUsername(), user);
-		return null;
+		Profile.addFriend(userBean.getUsername(), paramUser);
+		return "profile.xhtml?faces-redirect=true" + "&user=" + paramUser;
 	}
 
 	public String removeFriend() {
-		String user = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-				.getParameter("user");
-		Profile.removeFriend(userBean.getUsername(), user);
-		return null;
+		Profile.removeFriend(userBean.getUsername(), paramUser);
+		return "profile.xhtml?faces-redirect=true" + "&user=" + paramUser;
 	}
 
 	public String getIsMyFriend() {
-		String user = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-				.getParameter("user");
-		isMyFriend = Profile.isFriend(userBean.getUsername(), user);
+		isMyFriend = Profile.isFriend(userBean.getUsername(), paramUser);
 		return isMyFriend;
 	}
 
 	public void setIsMyFriend(String isMyFriend) {
-		this.isMyFriend = isMyFriend;
+		this.isMyFriend = paramUser;
 	}
 }

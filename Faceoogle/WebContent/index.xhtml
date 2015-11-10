@@ -1,32 +1,33 @@
 <!DOCTYPE xhtml>
 <h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Faceoogle</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Faceoogle</title>
 
-<link href="UI/css/bootstrap.min.css" rel="stylesheet"></link>
-<link href="UI/css/master.css" rel="stylesheet"></link>
+	<link href="UI/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="UI/css/master.css" rel="stylesheet"></link>
 
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css"></link>
-<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css"></link>
-<link
-	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css"></link>
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css"></link>
+	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
+		rel="stylesheet" type="text/css"></link>
+	<link
+		href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+		rel="stylesheet" type="text/css"></link>
 
-<script src="UI/js/jquery.js"></script>
+	<script src="UI/js/jquery.js"></script>
 
-<script src="UI/js/bootstrap.min.js"></script>
-<script
-	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="UI/js/bootstrap.min.js"></script>
+	<script
+		src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 </h:head>
 
 <h:body id="page-top" class="index">
@@ -45,7 +46,7 @@
 
 				<a class="navbar-brand" href="index.xhtml">Faceoogle</a>
 			</div>
-		
+
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
@@ -73,36 +74,34 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-3">
-				</div>
+				<div class="col-lg-3"></div>
 
 				<div class="col-lg-7">
-					 <h:form name="sentMessage" id="contactForm" novalidation="true">
+					<h:form name="sentMessage" id="contactForm" novalidation="true">
 						<div class="row control-group">
-                        	wat u DOIN' today?
-                            <div 
-                           		class="form-group col-xs-12 floating-label-form-group controls">
-                                <h:inputTextarea value="#{logBean.messageLogs}" rows="2" 
-                                	class="form-control"
-                                    required="true" 
-                                    id="message" 
-                                    data-validation-required-message="Please enter a message.">
-                                </h:inputTextarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        
-                        <br />
-						
+							Share a log below!
+							<div
+								class="form-group col-xs-12 floating-label-form-group controls">
+								<h:inputTextarea value="#{logBean.messageLogs}" rows="2"
+									class="form-control" required="true" id="message"
+									data-validation-required-message="Please enter a message.">
+								</h:inputTextarea>
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+
+						<br />
+
 						<div class="row">
 							<div class="form-group">
-								<h:commandButton id="sendLog" action="#{logBean.sendFeedLog()}" type="submit" class="btn btn-primary btn-sm" value="Send"/>
+								<h:commandButton id="sendLog" action="#{logBean.sendFeedLog()}"
+									type="submit" class="btn btn-primary btn-sm" value="Send" />
 							</div>
 						</div>
 					</h:form>
-				
-					<h:dataTable id="feedList" value="#{logBean.feed}" rendered="#{not empty logBean.feed}" var="o" cellspacing="0"
-						styleClass="table table-striped table-bordered">
+
+					<h:dataTable id="feedList" value="#{logBean.feed}" var="o"
+						cellspacing="0" styleClass="table table-striped table-bordered">
 
 						<h:column>
 							<f:facet name="header">
@@ -110,14 +109,14 @@
 							</f:facet>
 							<strong>#{o.writer}</strong>
 						</h:column>
-						
+
 						<h:column>
 							<f:facet name="header">
 								<p>To</p>
 							</f:facet>
 							<strong>#{o.receiver}</strong>
 						</h:column>
-						
+
 						<h:column>
 							<f:facet name="header">
 								<p></p>
@@ -130,12 +129,10 @@
 
 				<div class="col-lg-2">
 					<h:form id="refreshForm">
-						<h:commandButton id="refresh" value="Refresh"
-							styleClass="form-control btn btn-default">
-							<f:ajax render="feedList" execute="refresh" />
-						</h:commandButton>
+						<p:poll interval="5" listener="#{logBean.getLogs}"
+							update="feedList" />
 					</h:form>
-					
+
 					<p>Search</p>
 
 					<h:form id="searchForm">

@@ -1,7 +1,8 @@
 <!DOCTYPE xhtml>
 <h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<meta charset="utf-8" />
@@ -27,6 +28,11 @@
 	<script src="UI/js/bootstrap.min.js"></script>
 	<script
 		src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script type="text/javascript">
+		setInterval(function() {
+			document.getElementById('refresh').submit();
+		}, 5 * 1000);
+	</script>
 </h:head>
 
 <h:body id="page-top" class="index">
@@ -80,83 +86,88 @@
 							id="add" size="20" value="Add as Friend"
 							styleClass="form-control btn btn-success"
 							action="#{friendBean.addFriend}">
-							<f:param name="user" value="#{param['user']}"></f:param>
 							<f:ajax render="@all" />
 						</h:commandButton>
-						
+
 						<h:commandButton
 							rendered="#{friendBean.isMyFriend eq 'KNOWN' and friendBean.isMyFriend ne 'OWN'}"
 							id="remove" size="20" value="Remove Friend"
 							styleClass="form-control btn btn-danger"
 							action="#{friendBean.removeFriend}">
-							<f:param name="user" value="#{param['user']}"></f:param>
 							<f:ajax render="@all" />
 						</h:commandButton>
 					</h:form>
-					
-					<p>Username: <h:outputText value="#{profileBean.vm.username}" /></p>
-					<p>Name: <h:outputText value="#{profileBean.vm.name}" /></p>
-					<p>Birthday: <h:outputText value="#{profileBean.vm.birthDate}" /></p>
-					<p>Gender: <h:outputText value="#{profileBean.vm.gender}" /></p>
+
+					<p>
+						Username:
+						<h:outputText value="#{profileBean.vm.username}" />
+					</p>
+					<p>
+						Name:
+						<h:outputText value="#{profileBean.vm.name}" />
+					</p>
+					<p>
+						Birthday:
+						<h:outputText value="#{profileBean.vm.birthDate}" />
+					</p>
+					<p>
+						Gender:
+						<h:outputText value="#{profileBean.vm.gender}" />
+					</p>
 				</div>
 
 				<div class="col-lg-7">
-					 <h:form id="contactForm" novalidation="true" rendered="#{friendBean.isMyFriend eq 'KNOWN' or friendBean.isMyFriend eq 'OWN'}">
+					<h:form id="contactForm" novalidation="true"
+						rendered="#{friendBean.isMyFriend eq 'KNOWN' or friendBean.isMyFriend eq 'OWN'}">
 						<div class="row control-group">
-                        	wat u DOIN' today?
-                            <div 
-                           		class="form-group col-xs-12 floating-label-form-group controls">
-                                <h:inputTextarea value="#{logBean.messageLogs}" rows="2" 
-                                	class="form-control"
-                                    required="true" 
-                                    id="message" 
-                                    data-validation-required-message="Please enter a message.">
-                                </h:inputTextarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        
-                        <br />
-						
+							Share a log below!
+							<div
+								class="form-group col-xs-12 floating-label-form-group controls">
+								<h:inputTextarea value="#{logBean.messageLogs}" rows="2"
+									class="form-control" required="true" id="message"
+									data-validation-required-message="Please enter a message.">
+								</h:inputTextarea>
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+
+						<br />
+
 						<div class="row">
 							<div class="form-group">
-								<h:commandButton id="sendLog" action="#{logBean.sendWriteLog()}" type="submit" class="btn btn-primary btn-sm" value="Send">
-									<f:param name="user" value="#{param['user']}"></f:param>
+								<h:commandButton id="sendLog" action="#{logBean.sendWriteLog()}"
+									type="submit" class="btn btn-primary btn-sm" value="Send">
 								</h:commandButton>
 							</div>
 						</div>
+						
+						<h:dataTable id="logList" value="#{logBean.logs}"
+							var="o" cellspacing="0"
+							styleClass="table table-striped table-bordered">
+
+							<h:column>
+								<f:facet name="header">
+									<p></p>
+								</f:facet>
+								<strong>#{o.writer}</strong>
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<p></p>
+								</f:facet>
+								<i>#{o.body}</i>
+							</h:column>
+
+						</h:dataTable>
+						<p:poll interval="5" listener="#{logBean.getLogs}"
+							update="logList" />
 					</h:form>
-				
-					<h:dataTable id="logList" value="#{logBean.logs}" rendered="#{not empty logBean.logs}" var="o" cellspacing="0"
-						styleClass="table table-striped table-bordered"
-						>
-
-						<h:column>
-							<f:facet name="header">
-								<p></p>
-							</f:facet>
-							<strong>#{o.writer}</strong>
-						</h:column>
-
-						<h:column>
-							<f:facet name="header">
-								<p></p>
-							</f:facet>
-							<i>#{o.body}</i>
-						</h:column>
-
-					</h:dataTable>
 				</div>
 
+
+
 				<div class="col-lg-2">
-					<h:form id="refreshForm">
-						<h:commandButton id="refresh" value="Refresh"
-							styleClass="form-control btn btn-default">
-							<f:param name="user" value="#{param['user']}"></f:param>
-							<f:ajax render="logList" execute="refresh" />
-						</h:commandButton>
-					</h:form>
-					
 					<p>Search</p>
 
 					<h:form id="searchForm">
@@ -181,4 +192,5 @@
 	</section>
 
 </h:body>
+
 </h:html>

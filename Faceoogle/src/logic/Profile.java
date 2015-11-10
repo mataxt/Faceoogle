@@ -17,7 +17,6 @@ public class Profile {
 	public static List<LogViewModel> getLogs(String receiver) {
 		List<LogViewModel> lvm = new ArrayList<LogViewModel>();
 		List<Log> original = LogDB.listUserLogs(receiver);
-		
 		for (Log log : original) {
 			log.setBody(log.getBody().replaceAll("(.{60})", "$1\n"));
 			lvm.add(new LogViewModel(log));
