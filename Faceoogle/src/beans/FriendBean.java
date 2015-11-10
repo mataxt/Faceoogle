@@ -8,7 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import logic.Profile;
+import logic.FriendLogic;
 
 @ViewScoped
 @ManagedBean(name = "friendBean")
@@ -25,17 +25,17 @@ public class FriendBean implements Serializable {
 	}
 
 	public String addFriend() {
-		Profile.addFriend(userBean.getUsername(), paramUser);
+		FriendLogic.addFriend(userBean.getUsername(), paramUser);
 		return "profile.xhtml?faces-redirect=true" + "&user=" + paramUser;
 	}
 
 	public String removeFriend() {
-		Profile.removeFriend(userBean.getUsername(), paramUser);
+		FriendLogic.removeFriend(userBean.getUsername(), paramUser);
 		return "profile.xhtml?faces-redirect=true" + "&user=" + paramUser;
 	}
 
 	public String getIsMyFriend() {
-		isMyFriend = Profile.isFriend(userBean.getUsername(), paramUser);
+		isMyFriend = FriendLogic.isFriend(userBean.getUsername(), paramUser);
 		return isMyFriend;
 	}
 

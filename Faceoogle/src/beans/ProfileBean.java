@@ -7,7 +7,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import logic.Profile;
+import logic.UserLogic;
 import vm.UserViewModel;
 
 @SessionScoped
@@ -19,7 +19,7 @@ public class ProfileBean implements Serializable {
 	public UserViewModel getVm() {
 		String user = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext()
 		        .getRequest()).getParameter("user");
-		vm = Profile.getUserInfo(user);
+		vm = UserLogic.getUserInfo(user);
 		return vm;
 	}
 	

@@ -1,5 +1,6 @@
-package tests;
+package database;
 import java.sql.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -46,36 +47,6 @@ public class UserTests extends TestCase {
 		}
 	}
 	
-	
-//	public void testUser() {
-//		try {
-//			em.getTransaction().begin();
-//			User usr = new User("Username", "Password", "Name", Date.valueOf("1990-01-01"), "Man");
-//			
-//			//User exists?
-//			em.persist(usr);
-//			assertTrue(em.contains(usr));
-//		
-//			//All values correct?
-//			User result = em.createQuery("from User where username = ?1", User.class).setParameter(1, usr.getUsername()).getSingleResult();
-//			assertEquals("Username", result.getUsername());
-//			assertEquals("Password", result.getPassword());
-//			assertEquals("Name", result.getName());
-//			assertEquals(Date.valueOf("1990-01-01"), result.getBirthDate());
-//			assertEquals("Man", result.getGender());
-//			
-//			//Can remove?
-//			em.remove(usr);
-//			assertFalse(em.contains(usr));
-//			
-//			em.getTransaction().commit();
-//			
-//		} catch (Exception e) {
-//			fail("Exception during commit.");
-//			em.getTransaction().rollback();
-//		}
-//	}
-	
 	public void testUserMethods() {
 		try {
 			User usr = new User("Username", "Password", "Name", Date.valueOf("1990-01-01"), "Man");
@@ -84,19 +55,24 @@ public class UserTests extends TestCase {
 			while (!UserDB.addUser(usr)) {
 				usr.setUsername(usr.getUsername()+ rnd.nextInt());
 			}
-			assertTrue(UserDB.checkUser(usr));
+			assertTrue("User did not insert",UserDB.checkUser(usr));
 			
 			//All values correct?
 			User result = em.createQuery("from User where username = ?1", User.class).setParameter(1, usr.getUsername()).getSingleResult();
-			assertEquals(usr.getUsername(), result.getUsername());
-			assertEquals(usr.getPassword(), result.getPassword());
-			assertEquals(usr.getName(), result.getName());
-			assertEquals(usr.getBirthDate(), result.getBirthDate());
-			assertEquals(usr.getGender(), result.getGender());
+			assertEquals("Wrong username inserted",usr.getUsername(), result.getUsername());
+			assertEquals("Wrong password inserted",usr.getPassword(), result.getPassword());
+			assertEquals("Wrong name inserted",usr.getName(), result.getName());
+			assertEquals("Wrong birthdate inserted",usr.getBirthDate(), result.getBirthDate());
+			assertEquals("Wrong gender inserted",usr.getGender(), result.getGender());
+			
+			//Can Search?
+			List<User> users = UserDB.searchUserName(usr.getUsername());
+			assertFalse(users.isEmpty());
+			assertTrue("Search Failed ",users.contains(usr));
 			
 			//Can remove?
 			UserDB.removeUser(usr);
-			assertFalse(UserDB.checkUser(usr));
+			assertFalse("User did not remove",UserDB.checkUser(usr));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import logic.Profile;
+import logic.LogLogic;
 import vm.LogViewModel;
 
 @ViewScoped
@@ -29,12 +29,12 @@ public class LogBean implements Serializable {
 	}
 
 	public List<LogViewModel> getLogs() {
-		myLogs = Profile.getLogs(paramUser);
+		myLogs = LogLogic.getLogs(paramUser);
 		return myLogs;
 	}
 
 	public List<LogViewModel> getFeed() {
-		myFeed = Profile.getFeed(userBean.getUsername());
+		myFeed = LogLogic.getFeed(userBean.getUsername());
 		return myFeed;
 	}
 
@@ -55,12 +55,12 @@ public class LogBean implements Serializable {
 	}
 
 	public String sendWriteLog() {
-		Profile.writeLog(userBean.getUsername(), paramUser, messageLogs);
+		LogLogic.writeLog(userBean.getUsername(), paramUser, messageLogs);
 		return null;
 	}
 
 	public String sendFeedLog() {
-		Profile.writeLog(userBean.getUsername(), userBean.getUsername(), messageLogs);
+		LogLogic.writeLog(userBean.getUsername(), userBean.getUsername(), messageLogs);
 		return null;
 	}
 

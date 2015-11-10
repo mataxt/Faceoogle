@@ -1,4 +1,6 @@
-package tests;
+package database;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -53,22 +55,30 @@ public class LogTests extends TestCase{
 			
 			//Log created?
 			log.setId(LogDB.addLog(log));
+
 			
 			//All values correct?
 			Log result = em.createQuery("from Log where id = ?1", Log.class).setParameter(1, log.getId()).getSingleResult();
-			assertEquals(log.getId(), result.getId());
-			assertEquals(log.getWriter(), result.getWriter());
-			assertEquals(log.getReceiver(), result.getReceiver());
-			assertEquals(log.getBody(), result.getBody());
-			assertEquals(log.getTimesamp(), result.getTimesamp());
+			assertEquals("Database and Entity Id mismatch",log.getId(), result.getId());
+			assertEquals("Wrong writer inserted",log.getWriter(), result.getWriter());
+			assertEquals("Wrong receiver inserted ",log.getReceiver(), result.getReceiver());
+			assertEquals("Wrong body inserted",log.getBody(), result.getBody());
+
+			
+			//Get the logs
+			List<Log> logs = LogDB.listUserLogs(log.getReceiver());
+			assertFalse("Fetching list failed",logs.isEmpty());
+			assertEquals("Fetching writer failed",log.getWriter(), logs.get(0).getWriter());
+			assertEquals("Fetching receiver failed",log.getReceiver(), logs.get(0).getReceiver());
+			assertEquals("Fetching body failed",log.getBody(), logs.get(0).getBody());
 			
 			//Can remove?
 			LogDB.removeLog(log);
-
+			assertTrue("Remove failed",LogDB.listUserLogs(log.getReceiver()).isEmpty());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			fail("Exception during commit.");
+			fail("Exception during log commit.");
 		}
 	}
 }

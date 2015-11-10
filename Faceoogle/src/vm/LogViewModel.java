@@ -17,23 +17,12 @@ public class LogViewModel {
 		return writer;
 	}
 	
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	
 	public String getReceiver() {
 		return receiver;
-	}
-	
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
 	}
 	
 	public String getBody() {
 		return body;
 	}
-	
-	public void setBody(String body) {
-		this.body = body;
-	}
+
 }

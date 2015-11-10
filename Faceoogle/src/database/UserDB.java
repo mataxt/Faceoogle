@@ -69,7 +69,7 @@ public class UserDB {
 		emf.close();
 	}
 
-	public static List<User> findByUserName(String username) {
+	public static List<User> searchUserName(String username) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		List<User> users = new ArrayList<User>();

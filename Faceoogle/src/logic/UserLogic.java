@@ -6,6 +6,7 @@ import java.util.List;
 
 import database.UserDB;
 import model.User;
+import vm.UserViewModel;
 
 public class UserLogic {
 	public static boolean login(String username, String password) {
@@ -20,8 +21,8 @@ public class UserLogic {
 
 	public static ArrayList<String> getUserNamesByName(String name) {
 		ArrayList<String> names = new ArrayList<String>();
-		List<User> users = UserDB.findByUserName(name);
-		
+		List<User> users = UserDB.searchUserName(name);
+
 		for (User user : users) {
 			names.add(user.getUsername());
 		}
@@ -30,4 +31,12 @@ public class UserLogic {
 
 	}
 
+	public static UserViewModel getUserInfo(String user) {
+		List<User> usrInfo = UserDB.searchUserName(user);
+		UserViewModel vm = null;
+		if (!usrInfo.isEmpty()) {
+			vm = new UserViewModel(UserDB.searchUserName(user).get(0));
+		}
+		return vm;
+	}
 }
