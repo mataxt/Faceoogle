@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -16,7 +17,9 @@ public class FriendBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String isMyFriend;
 	private String paramUser = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-			.getRequest()).getParameter("user");;
+			.getRequest()).getParameter("user");
+	private List<String> friendList;
+	
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
 
@@ -24,6 +27,7 @@ public class FriendBean implements Serializable {
 		this.userBean = userBean;
 	}
 
+	
 	public String addFriend() {
 		FriendLogic.addFriend(userBean.getUsername(), paramUser);
 		return "profile.xhtml?faces-redirect=true" + "&user=" + paramUser;
@@ -42,4 +46,10 @@ public class FriendBean implements Serializable {
 	public void setIsMyFriend(String isMyFriend) {
 		this.isMyFriend = paramUser;
 	}
+
+	public List<String> getFriendList() {
+		friendList = FriendLogic.getFriends(userBean.getUsername());
+		return friendList;
+	}
+
 }

@@ -16,10 +16,6 @@ public class SearchBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String searchName;
 
-	public String gotoProfileUser(String n) {
-		return "profile.xhtml?faces-redirect=true" + "&user=" + n;
-	}
-
 	public ArrayList<String> getNames() {
 		return UserLogic.getUserNamesByName(searchName);
 	}

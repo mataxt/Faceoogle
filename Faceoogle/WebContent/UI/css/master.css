@@ -459,3 +459,8 @@ th, td {
     overflow: hidden;
     width: 100px;
 }
+
+.ui-datalist-data {
+   height:400px;
+   overflow:auto;
+}

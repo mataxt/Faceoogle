@@ -54,6 +54,7 @@ public class Chat implements Serializable {
 		this.chater = chater;
 	}
 
+
 	@Column(name = "Chatee", nullable = false)
 	public String getChatee() {
 		return chatee;
@@ -80,5 +81,10 @@ public class Chat implements Serializable {
 
 	public void setTimesamp(String timesamp) {
 		this.timesamp = timesamp;
+	}
+	
+	@Override
+	public String toString(){
+		return message;
 	}
 }

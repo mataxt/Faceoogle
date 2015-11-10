@@ -52,9 +52,10 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<h:form id="navForm">
-						<li class="page-scroll"><h:commandLink
-								action="#{userBean.gotoMyProfile}" value="Profile" /></li>
-						<li class="page-scroll"><a href="messages.xhtml">Messages</a></li>
+						<li class="page-scroll"><p:link outcome="profile"
+								value="#{userBean.username}">
+								<f:param name="user" value="#{userBean.username}" />
+							</p:link></li>
 						<li class="page-scroll"><h:commandLink
 								action="#{userBean.logout}" value="Logout" /></li>
 					</h:form>
@@ -74,7 +75,18 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-3"></div>
+				<div class="col-lg-3">
+					<h:form>
+						<p:dataList value="#{friendBean.friendList}" var="friend">
+							<f:facet name="header">
+				            Friends
+				        </f:facet>
+							<p:link outcome="profile" value="#{friend}">
+								<f:param name="user" value="#{friend}" />
+							</p:link>
+						</p:dataList>
+					</h:form>
+				</div>
 
 				<div class="col-lg-7">
 					<h:form name="sentMessage" id="contactForm" novalidation="true">
@@ -101,35 +113,26 @@
 					</h:form>
 
 					<h:dataTable id="feedList" value="#{logBean.feed}" var="o"
-						cellspacing="0" styleClass="table table-striped table-bordered">
-
+						cellspacing="0" styleClass="table">
 						<h:column>
-							<f:facet name="header">
-								<p>From</p>
-							</f:facet>
-							<strong>#{o.writer}</strong>
+							<p:fieldset legend="#{o.writer}">
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="#{o.body}" />
+								</h:panelGrid>
+							</p:fieldset>
+							<p:fieldset rendered="#{o.writer ne o.receiver}"
+								legend="#{o.writer} wrote to #{o.receiver}">
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="#{o.body}" />
+								</h:panelGrid>
+							</p:fieldset>
 						</h:column>
-
-						<h:column>
-							<f:facet name="header">
-								<p>To</p>
-							</f:facet>
-							<strong>#{o.receiver}</strong>
-						</h:column>
-
-						<h:column>
-							<f:facet name="header">
-								<p></p>
-							</f:facet>
-							<i>#{o.body}</i>
-						</h:column>
-
 					</h:dataTable>
 				</div>
 
 				<div class="col-lg-2">
 					<h:form id="refreshForm">
-						<p:poll interval="5" listener="#{logBean.getLogs}"
+						<p:poll interval="5300" listener="#{logBean.getLogs}"
 							update="feedList" />
 					</h:form>
 
@@ -144,7 +147,9 @@
 						<h:dataTable id="nameList" value="#{searchBean.names}" var="n"
 							border="1" styleClass="form-control">
 							<h:column rendered="#{not empty searchBean.searchName}">
-								<h:commandLink action="#{searchBean.gotoProfileUser(n)}">#{n}</h:commandLink>
+								<p:link outcome="profile" value="#{n}">
+									<f:param name="user" value="#{n}" />
+								</p:link>
 							</h:column>
 						</h:dataTable>
 					</h:form>

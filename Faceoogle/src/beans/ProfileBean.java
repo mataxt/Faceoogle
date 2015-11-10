@@ -3,17 +3,19 @@ package beans;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import logic.UserLogic;
 import vm.UserViewModel;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean(name = "profileBean")
 public class ProfileBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String paramUser = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+			.getRequest()).getParameter("user");;
 	private UserViewModel vm;
 	
 	public UserViewModel getVm() {
@@ -25,5 +27,9 @@ public class ProfileBean implements Serializable {
 	
 	public void setVm(UserViewModel vm) {
 		this.vm = vm;
+	}
+	
+	public String getParamUser() {
+		return paramUser;
 	}
 }
