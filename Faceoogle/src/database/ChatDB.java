@@ -56,7 +56,7 @@ public class ChatDB {
 		try {
 			history = em
 					.createQuery(
-							"from Chat where (chater = ?1 and chatee = ?2) or (chater = 2? and chatee =1?) order by timestamp desc",
+							"from Chat where (chater = ?1 and chatee = ?2) or (chater = ?2 and chatee = ?1) order by timestamp desc",
 							Chat.class)
 					.setParameter(1, chat.getChater()).setParameter(2, chat.getChatee()).getResultList();
 		} catch (Exception e) {
@@ -74,7 +74,7 @@ public class ChatDB {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.createQuery("delete from Chat where (chater = ?1 and chatee = ?2) or (chater = 2? and chatee =1?)")
+			em.createQuery("delete from Chat where (chater = ?1 and chatee = ?2) or (chater = ?2 and chatee = ?1)")
 					.setParameter(1, chat.getChater()).setParameter(2, chat.getChatee()).executeUpdate();
 			em.getTransaction().commit();
 		} catch (Exception e) {

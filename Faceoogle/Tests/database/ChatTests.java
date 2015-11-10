@@ -45,7 +45,7 @@ public class ChatTests extends TestCase {
 		}
 	}
 
-	public void testUserMethods() {
+	public void testChatMethods() {
 		try {
 			Chat chat = new Chat("Chater", "Chatee", "Message");
 
@@ -55,7 +55,7 @@ public class ChatTests extends TestCase {
 			// All values correct?
 			Chat result = em
 					.createQuery(
-							"from Chat where (chater = ?1 and chatee = ?2) or (chater = 2? and chatee =1?) order by timestamp desc",
+							"from Chat where (chater = ?1 and chatee = ?2) or (chater = ?2 and chatee =?1) order by timestamp desc",
 							Chat.class)
 					.setParameter(1, chat.getChater()).setParameter(2, chat.getChatee()).getSingleResult();
 			assertEquals(chat.getChater(), result.getChater());

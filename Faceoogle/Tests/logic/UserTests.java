@@ -2,7 +2,7 @@ package logic;
 
 import junit.framework.TestCase;
 
-public class ChatTests extends TestCase {
+public class UserTests extends TestCase {
 	@Override
 	public void setUp() {
 		try {
@@ -22,7 +22,7 @@ public class ChatTests extends TestCase {
 		}
 	}
 	
-	public void testChatMethods(){
+	public void testUserMethods(){
 		
 	}
 }
