@@ -83,14 +83,20 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-3">
-					<h:form>
+										<h:form>
 						<p:dataList value="#{friendBean.friendList}" var="friend">
 							<f:facet name="header">
 				            Friends
-				        	</f:facet>
-							<p:link outcome="chat" value="#{friend}">
+				        </f:facet>
+							<b>#{friend}</b>
+							<p:button outcome="profile" value="P"
+								styleClass="ui-mini-button btn-default">
 								<f:param name="user" value="#{friend}" />
-							</p:link>
+							</p:button>
+							<p:button outcome="chat" value="C"
+								styleClass="ui-mini-button btn-default">
+								<f:param name="user" value="#{friend}" />
+							</p:button>
 						</p:dataList>
 					</h:form>
 				</div>

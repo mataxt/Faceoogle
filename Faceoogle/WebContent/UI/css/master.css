@@ -464,3 +464,11 @@ th, td {
    height:400px;
    overflow:auto;
 }
+
+.ui-mini-button {
+   height:18px;
+   width:28px;
+}
+.ui-button-text{
+	font-size: 10px;
+}

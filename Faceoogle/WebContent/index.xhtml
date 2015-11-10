@@ -81,9 +81,15 @@
 							<f:facet name="header">
 				            Friends
 				        </f:facet>
-							<p:link outcome="profile" value="#{friend}">
+							<b>#{friend}</b>
+							<p:button outcome="profile" value="P"
+								styleClass="ui-mini-button btn-default">
 								<f:param name="user" value="#{friend}" />
-							</p:link>
+							</p:button>
+							<p:button outcome="chat" value="C"
+								styleClass="ui-mini-button btn-default">
+								<f:param name="user" value="#{friend}" />
+							</p:button>
 						</p:dataList>
 					</h:form>
 				</div>
