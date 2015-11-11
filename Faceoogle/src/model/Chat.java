@@ -28,7 +28,7 @@ public class Chat implements Serializable {
 		this.chater = chater;
 		this.chatee = chatee;
 	}
-	public Chat(String chater, String chatee,String message) {
+	public Chat(String chater, String chatee, String message) {
 		this.chater = chater;
 		this.chatee = chatee;
 		this.message = message;
@@ -53,7 +53,6 @@ public class Chat implements Serializable {
 	public void setChater(String chater) {
 		this.chater = chater;
 	}
-
 
 	@Column(name = "Chatee", nullable = false)
 	public String getChatee() {

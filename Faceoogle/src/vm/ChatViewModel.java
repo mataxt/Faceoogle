@@ -24,6 +24,4 @@ public class ChatViewModel {
 	public String getMessage() {
 		return message;
 	}
-	
-
 }
