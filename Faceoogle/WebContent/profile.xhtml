@@ -153,12 +153,10 @@
 					</h:form>
 				</div>
 
-
-
 				<div class="col-lg-2">
 					<h:form>
 						<p:button outcome="chat" value="Chat"
-							styleClass="form-control btn btn-default"
+							styleClass="form-control btn-info"
 							rendered="#{friendBean.isMyFriend ne 'OWN'}">
 							<f:param name="user" value="#{param['user']}" />
 						</p:button>

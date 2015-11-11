@@ -75,19 +75,22 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-3">
+				<div class="col-lg-3" style="text-align:center">
 					<h:form>
-						<p:dataList value="#{friendBean.friendList}" var="friend">
+						<p:dataList value="#{friendBean.friendList}" var="friend" type="definition">
 							<f:facet name="header">
 				            Friends
 				        </f:facet>
-							<b>#{friend}</b>
-							<p:button outcome="profile" value="P"
-								styleClass="ui-mini-button btn-default">
+							<b>#{friend} </b>
+							
+							<br />
+							
+							<p:button outcome="profile" value="Profile"
+								styleClass="btn-default">
 								<f:param name="user" value="#{friend}" />
-							</p:button>
-							<p:button outcome="chat" value="C"
-								styleClass="ui-mini-button btn-default">
+							</p:button>							  
+							<p:button outcome="chat" value="Chat"
+								styleClass=" btn-default">
 								<f:param name="user" value="#{friend}" />
 							</p:button>
 						</p:dataList>

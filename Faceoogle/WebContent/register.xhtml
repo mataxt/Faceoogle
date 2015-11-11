@@ -118,9 +118,9 @@
 							<h:message for="gender" style="color:red" />
 							<div
 								class="form-group col-xs-12 floating-label-form-group controls">
-								<h:selectOneRadio  id="gender" value="#{userBean.gender}"
-									require="true" validatorMessage="*Please pick a gender"> Male
-									<f:selectItem itemValue="Male" itemLabel="Male" /> Female
+								<h:selectOneRadio style="width:0" id="gender" value="#{userBean.gender}"
+									require="true" validatorMessage="*Please pick a gender">Male
+									<f:selectItem itemValue="Male" itemLabel="Male" />Female
 									<f:selectItem itemValue="Female" itemLabel="Female" />
 								</h:selectOneRadio>
 								<p class="help-block text-danger"></p>
