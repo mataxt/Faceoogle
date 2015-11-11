@@ -32,7 +32,28 @@
 		$(document).ready(scrollToBottom);
 		function scrollToBottom() {
 			$('.ui-datalist-data').scrollTop(
-					($('.ui-datalist-data')[0].scrollHeight) * 2);
+					($('.ui-datalist-data')[0].scrollHeight) * 1000);
+		}
+	</script>
+	<script type="text/javascript">
+		var y;
+		var elmnt;
+		function saveScrollPos() {
+			var scrollPos = jQuery('#chatForm .ui-datalist-data').prop('scrollTop');
+			document.getElementById('#chatForm:scrollPos').value = scrollPos;
+		}
+		function bla() {
+			elmnt = document.getElementById("chatDiv");
+			y = elmnt.scrollTop;
+			alert(y);
+		}
+		function autoScroll() {
+			var scrollPos = document.getElementById('receptionFORM:scrollPos').value;
+			jQuery(
+					'.ui-datalist-data')
+					.animate({
+						scrollTop : scrollPos
+					}, scrollPos);
 		}
 	</script>
 </h:head>
@@ -77,47 +98,58 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<br /> <br />
-					<h2>Create message</h2>
+					<h2>Chat</h2>
 					<br />
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-3" style="text-align:center">
+				<div class="col-lg-3" style="text-align: center">
 					<h:form>
-						<p:dataList value="#{friendBean.friendList}" var="friend" type="definition">
+						<p:dataList value="#{friendBean.friendList}" var="friend"
+							type="definition">
 							<f:facet name="header">
 				            Friends
 				        </f:facet>
 							<b>#{friend}</b>
-							
+
 							<br />
-							
+
 							<p:button outcome="profile" value="Profile"
 								styleClass="btn-default">
 								<f:param name="user" value="#{friend}" />
-							</p:button>							  
-							<p:button outcome="chat" value="Chat"
-								styleClass=" btn-default">
+							</p:button>
+							<p:button outcome="chat" value="Chat" styleClass=" btn-default">
 								<f:param name="user" value="#{friend}" />
 							</p:button>
 						</p:dataList>
 					</h:form>
 				</div>
-				<div class="col-lg-7" style="text-align:center">
+
+				<div id="chatDiv" class="col-lg-7 ">
 					<h:form id="chatForm">
+					<h:inputHidden id="scrollPos" />
+						<p:poll interval="5" listener="#{chatBean.getChatMessages}"
+							update="chatForm" onstart="saveScrollPos()"
+							oncomplete="autoScroll()" />
+
 						<p:dataList id="chatBox" value="#{chatBean.chatMessages}"
 							var="msg" type="definition">
 							<f:facet name="header">
 				            Chat
 				        	</f:facet>
-							<b>#{msg.chater} : </b>
-							<i>#{msg.message}</i>
-							<br />
+							<div style="padding-left: 20px">
+
+								<h:outputText rendered="#{userBean.username eq msg.chater}"
+									style="color:blue" value="#{msg.chater} : " />
+								<h:outputText rendered="#{profileBean.paramUser eq msg.chater}"
+									style="color:red" value="#{msg.chater} : " />
+								<br /> <i>#{msg.message}</i>
+								<p />
+							</div>
 						</p:dataList>
 					</h:form>
 
 					<h:form name="sentMessage" id="contactForm">
-
 						<div class="row control-group">
 							Message
 							<div
@@ -134,11 +166,13 @@
 						<div class="row">
 							<div class="form-group col-xs-12">
 								<h:form>
-									<p:commandButton value="Send" id="sendMsg" update="chatForm"
-										type="submit"
+									<p:commandButton value="Send" id="sendMsg"
+										update="chatForm contactForm" type="submit"
+										onstart="#{chatBean.clearMessage()}"
 										oncomplete="scrollToBottom()"
 										actionListener="#{chatBean.sendMessage}"
 										styleClass="ui-priority-primary" />
+
 								</h:form>
 							</div>
 						</div>

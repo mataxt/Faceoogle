@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.4.15.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 10, 2015 at 04:35 PM
--- Server version: 5.5.45
+-- Generation Time: Nov 11, 2015 at 08:10 AM
+-- Server version: 5.5.46
 -- PHP Version: 5.4.45
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -32,7 +32,7 @@ CREATE TABLE `chat` (
   `Chatee` varchar(255) NOT NULL,
   `Message` text NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,8 @@ CREATE TABLE `friends` (
 INSERT INTO `friends` (`User`, `Friend`) VALUES
 ('1', '1'),
 ('1', '11usrname'),
-('1', '3');
+('1', '3'),
+('1', 'teasdg');
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,7 @@ CREATE TABLE `logs` (
   `Receiver` varchar(255) NOT NULL,
   `Body` text NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `logs`
@@ -81,7 +82,8 @@ INSERT INTO `logs` (`Id`, `Writer`, `Receiver`, `Body`, `Timestamp`) VALUES
 (68, '1', '1', 'gsdeg', '2015-11-10 11:07:21'),
 (72, '4grd', '2', '535d', '2015-11-10 11:12:46'),
 (73, '4grhtd', '2', '535d', '2015-11-10 11:13:48'),
-(74, '1', '1', 'test', '2015-11-10 11:26:29');
+(74, '1', '1', 'test', '2015-11-10 11:26:29'),
+(94, 'teasdg', 'teasdg', 'W0W=W=W=W=W="132133123', '2015-11-10 16:40:53');
 
 -- --------------------------------------------------------
 
@@ -151,12 +153,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=94;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
 --
 -- Constraints for dumped tables
 --

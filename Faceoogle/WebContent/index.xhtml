@@ -125,7 +125,8 @@
 					<h:dataTable id="feedList" value="#{logBean.feed}" var="o"
 						cellspacing="0" styleClass="table">
 						<h:column>
-							<p:fieldset legend="#{o.writer}">
+							<p:fieldset rendered="#{o.writer eq o.receiver}"
+								legend="#{o.writer}">
 								<h:panelGrid columns="2" cellpadding="5">
 									<h:outputText value="#{o.body}" />
 								</h:panelGrid>
@@ -142,7 +143,7 @@
 
 				<div class="col-lg-2">
 					<h:form id="refreshForm">
-						<p:poll interval="5300" listener="#{logBean.getLogs}"
+						<p:poll interval="5" listener="#{logBean.getFeed}"
 							update="feedList" />
 					</h:form>
 

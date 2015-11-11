@@ -57,5 +57,7 @@ public class ChatBean implements Serializable {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
+	public void clearMessage(){
+		this.message = "";
+	}
 }

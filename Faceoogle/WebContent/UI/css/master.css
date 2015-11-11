@@ -462,7 +462,7 @@ th, td {
 
 .ui-datalist-data {
    height:400px;
-   overflow:auto;
+   overflow-y:scroll;
 }
 
 .ui-mini-button {
