@@ -18,9 +18,9 @@ import vm.ChatViewModel;
 public class ChatBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<ChatViewModel> chatMessages = new ArrayList<ChatViewModel>();
-	private String message;
 	private String paramUser = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-			.getRequest()).getParameter("user");;
+			.getRequest()).getParameter("user");
+	private String message;
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
 
@@ -59,8 +59,5 @@ public class ChatBean implements Serializable {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	public void clearMessage(){
-		this.message = "";
 	}
 }

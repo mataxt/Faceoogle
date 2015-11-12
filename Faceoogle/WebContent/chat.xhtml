@@ -48,6 +48,11 @@
 			(jQuery("#chatForm\\:chatBox_content")).scrollTop(scrollPosition);
 		}
 	</script>
+	<script type="text/javascript">
+		function clearInput() {
+			$('#contactForm\\:message').val('');
+		}
+	</script>
 </h:head>
 
 <h:body id="page-top" class="index">
@@ -119,7 +124,7 @@
 
 				<div id="chatDiv" class="col-lg-7 ">
 					<h:form id="chatForm">
-						<p:poll interval="5" listener="#{chatBean.getChatMessages}"
+						<p:poll interval="4" listener="#{chatBean.getChatMessages}"
 							update="chatForm" onstart="saveScrollPosition()"
 							oncomplete="setScrollPosition()" />
 
@@ -155,15 +160,11 @@
 
 						<div class="row">
 							<div class="form-group col-xs-12">
-								<h:form>
 									<p:commandButton value="Send" id="sendMsg"
-										update="chatForm contactForm" type="submit"
-										onstart="#{chatBean.clearMessage()}"
-										oncomplete="scrollToBottom()"
+										update="chatForm" type="submit"
+										oncomplete="scrollToBottom(),clearInput()"
 										actionListener="#{chatBean.sendMessage}"
 										styleClass="ui-priority-primary" />
-
-								</h:form>
 							</div>
 						</div>
 					</h:form>

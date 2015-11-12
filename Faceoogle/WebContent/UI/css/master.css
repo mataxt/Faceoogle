@@ -459,7 +459,8 @@ th, td {
     overflow: hidden;
     width: 100px;
 }
-.ui-widget-content-scrollable{
+
+.ui-widget-content-scrollable {
 	height:400px;
 	overflow: auto;
 }
