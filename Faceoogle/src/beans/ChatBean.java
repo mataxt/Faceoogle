@@ -46,6 +46,9 @@ public class ChatBean implements Serializable {
 	}
 	
 	public String sendMessage() {
+		if(paramUser == null) {
+			return "index.xhtml";
+		}
 		ChatLogic.sendMessage(userBean.getUsername(), paramUser, message);
 		return null;
 	}

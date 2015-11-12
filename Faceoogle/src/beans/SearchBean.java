@@ -9,10 +9,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import logic.UserLogic;
+
 @ViewScoped
 @ManagedBean(name = "searchBean")
 public class SearchBean implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	private String searchName;
 
@@ -27,5 +27,4 @@ public class SearchBean implements Serializable {
 	public void setSearchName(String searchName) {
 		this.searchName = searchName;
 	}
-
 }

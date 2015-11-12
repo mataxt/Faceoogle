@@ -75,7 +75,7 @@ public class UserDB {
 		List<User> users = new ArrayList<User>();
 		try {
 			users = em.createQuery("from User where username like CONCAT('%', :namesList, '%') order by username",
-					User.class).setParameter("namesList",username).getResultList();
+					User.class).setParameter("namesList",username).setMaxResults(5).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

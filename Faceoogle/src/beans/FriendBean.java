@@ -27,7 +27,6 @@ public class FriendBean implements Serializable {
 		this.userBean = userBean;
 	}
 
-	
 	public String addFriend() {
 		FriendLogic.addFriend(userBean.getUsername(), paramUser);
 		return "profile.xhtml?faces-redirect=true" + "&user=" + paramUser;
@@ -39,6 +38,9 @@ public class FriendBean implements Serializable {
 	}
 
 	public String getIsMyFriend() {
+		if(paramUser == null) {
+			return "OWN";
+		}
 		isMyFriend = FriendLogic.isFriend(userBean.getUsername(), paramUser);
 		return isMyFriend;
 	}
@@ -51,5 +53,4 @@ public class FriendBean implements Serializable {
 		friendList = FriendLogic.getFriends(userBean.getUsername());
 		return friendList;
 	}
-
 }

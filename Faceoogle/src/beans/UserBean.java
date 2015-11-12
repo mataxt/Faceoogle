@@ -19,7 +19,7 @@ public class UserBean implements Serializable {
 	private Date birthdate;
 	private String gender;
 	private String loginMessage, registerMessage;
-
+	private boolean loggedIn;
 	
 	public java.util.Date getBirthdate() {
 		return birthdate;
@@ -89,22 +89,30 @@ public class UserBean implements Serializable {
 	public String login() {
 		if (UserLogic.login(username, password)) {
 			loginMessage = "";
+			loggedIn = true;
 			return "index.xhtml";
 		} else {
 			loginMessage = "Wrong username or password";
+			loggedIn = false;
 			return "login.xhtml";
 		}
 	}
-	public String logout(){
+	
+	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		loggedIn = false;
 		return "login.xhtml";
 	}
-	
-
 	
 	public String gotoMyProfile() {
 		return "profile.xhtml?faces-redirect=true" + "&user=" + username;
 	}
 
+	public boolean getLoggedIn() {
+		return loggedIn;
+	}
 
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
 }
