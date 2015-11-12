@@ -459,10 +459,9 @@ th, td {
     overflow: hidden;
     width: 100px;
 }
-
-.ui-datalist-data {
-   height:400px;
-   overflow-y:scroll;
+.ui-widget-content-scrollable{
+	height:400px;
+	overflow: auto;
 }
 
 .ui-mini-button {

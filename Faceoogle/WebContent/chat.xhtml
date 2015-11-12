@@ -31,29 +31,21 @@
 	<script type="text/javascript">
 		$(document).ready(scrollToBottom);
 		function scrollToBottom() {
-			$('.ui-datalist-data').scrollTop(
-					($('.ui-datalist-data')[0].scrollHeight) * 1000);
+			$("#chatForm\\:chatBox_content").addClass("ui-widget-content-scrollable");
+			(jQuery("#chatForm\\:chatBox_content")).scrollTop(
+					((jQuery("#chatForm\\:chatBox_content"))[0].scrollHeight + 1));
 		}
 	</script>
 	<script type="text/javascript">
-		var y;
-		var elmnt;
-		function saveScrollPos() {
-			var scrollPos = jQuery('#chatForm .ui-datalist-data').prop('scrollTop');
-			document.getElementById('#chatForm:scrollPos').value = scrollPos;
+		var scrollPosition;
+		function saveScrollPosition() {
+			scrollPosition = (jQuery("#chatForm\\:chatBox_content"))
+					.scrollTop();
 		}
-		function bla() {
-			elmnt = document.getElementById("chatDiv");
-			y = elmnt.scrollTop;
-			alert(y);
-		}
-		function autoScroll() {
-			var scrollPos = document.getElementById('receptionFORM:scrollPos').value;
-			jQuery(
-					'.ui-datalist-data')
-					.animate({
-						scrollTop : scrollPos
-					}, scrollPos);
+
+		function setScrollPosition() {
+			$("#chatForm\\:chatBox_content").addClass("ui-widget-content-scrollable");
+			(jQuery("#chatForm\\:chatBox_content")).scrollTop(scrollPosition);
 		}
 	</script>
 </h:head>
@@ -127,10 +119,9 @@
 
 				<div id="chatDiv" class="col-lg-7 ">
 					<h:form id="chatForm">
-					<h:inputHidden id="scrollPos" />
 						<p:poll interval="5" listener="#{chatBean.getChatMessages}"
-							update="chatForm" onstart="saveScrollPos()"
-							oncomplete="autoScroll()" />
+							update="chatForm" onstart="saveScrollPosition()"
+							oncomplete="setScrollPosition()" />
 
 						<p:dataList id="chatBox" value="#{chatBean.chatMessages}"
 							var="msg" type="definition">
@@ -138,7 +129,6 @@
 				            Chat
 				        	</f:facet>
 							<div style="padding-left: 20px">
-
 								<h:outputText rendered="#{userBean.username eq msg.chater}"
 									style="color:blue" value="#{msg.chater} : " />
 								<h:outputText rendered="#{profileBean.paramUser eq msg.chater}"
