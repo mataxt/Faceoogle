@@ -26,8 +26,7 @@ public class User implements Serializable {
 	private String gender;
 	private List<User> friends;
 
-	public User() {
-	}
+	public User() {}
 
 	public User(String username) {
 		super();

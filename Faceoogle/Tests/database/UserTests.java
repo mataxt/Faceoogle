@@ -31,7 +31,6 @@ public class UserTests extends TestCase {
 			ex.printStackTrace();
 			fail("Exception during JPA EntityManager instanciation.");
 		}
-
 	}
 
 	@Override

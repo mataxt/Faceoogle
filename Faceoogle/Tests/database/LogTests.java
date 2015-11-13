@@ -30,7 +30,6 @@ public class LogTests extends TestCase{
 			ex.printStackTrace();
 			fail("Exception during JPA EntityManager instanciation.");
 		}
-
 	}
 
 	@Override
@@ -56,7 +55,6 @@ public class LogTests extends TestCase{
 			//Log created?
 			log.setId(LogDB.addLog(log));
 
-			
 			//All values correct?
 			Log result = em.createQuery("from Log where id = ?1", Log.class).setParameter(1, log.getId()).getSingleResult();
 			assertEquals("Database and Entity Id mismatch",log.getId(), result.getId());
@@ -64,7 +62,6 @@ public class LogTests extends TestCase{
 			assertEquals("Wrong receiver inserted ",log.getReceiver(), result.getReceiver());
 			assertEquals("Wrong body inserted",log.getBody(), result.getBody());
 
-			
 			//Get the logs
 			List<Log> logs = LogDB.listUserLogs(log.getReceiver());
 			assertFalse("Fetching list failed",logs.isEmpty());

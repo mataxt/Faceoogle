@@ -10,7 +10,6 @@ public class UserTests extends TestCase {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -22,7 +21,5 @@ public class UserTests extends TestCase {
 		}
 	}
 	
-	public void testUserMethods(){
-		
-	}
+	public void testUserMethods() {}
 }

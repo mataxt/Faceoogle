@@ -27,7 +27,6 @@ public class ChatTests extends TestCase {
 			ex.printStackTrace();
 			fail("Exception during JPA EntityManager instanciation.");
 		}
-
 	}
 
 	@Override
