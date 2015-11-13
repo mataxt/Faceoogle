@@ -6,19 +6,25 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
-import model.Friend;
+import model.User;
 
 public class FriendDB {
-	
-	public static void addFriend(Friend frd) {
+
+	public static void addFriend(User user, User friend) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(frd);
+			User u = em.find(User.class, user.getUsername());
+			User f = em.find(User.class, friend.getUsername());
+			u.addFriend(f);
+			em.merge(u);
+			em.flush();
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -27,13 +33,20 @@ public class FriendDB {
 		}
 		emf.close();
 	}
-	
-	public static void removeFriend(Friend frd) {
+
+	public static void removeFriend(User user, User friend) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
-			em.getTransaction().begin();
-			em.createQuery("delete from Friend f where f = ?1").setParameter(1, frd).executeUpdate();
+
+			User f = em.find(User.class, friend.getUsername());
+			em.remove(f);
+			em.flush();
+			User u = em.find(User.class, user.getUsername());
+			em.merge(u);
+//			u.setFriends(null);
+//			em.merge(u);
+			em.flush();
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
@@ -45,20 +58,21 @@ public class FriendDB {
 		emf.close();
 	}
 
-	public static List<Friend> getFriends(String usr) {
+	public static List<User> getFriends(User user) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
-		List<Friend> friends = new ArrayList<Friend>();
+		List<User> friends = new ArrayList<User>();
 		try {
-			friends = em.createQuery("from Friend f where f.user = ?1",
-					Friend.class).setParameter(1,usr).getResultList();
+			TypedQuery<User> q = em.createQuery("select NEW model.User(f.username) "
+					+ "from User u inner join u.friends f where u.username = ?1",User.class).setParameter(1,user.toString());
+			friends = q.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			em.close();
 		}
 		emf.close();
-		
+
 		return friends;
 	}
 }

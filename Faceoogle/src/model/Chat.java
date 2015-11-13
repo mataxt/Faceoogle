@@ -1,13 +1,13 @@
 package model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -21,6 +21,7 @@ public class Chat implements Serializable {
 	private String chatee;
 	private String message;
 	private String timesamp;
+
 
 	public Chat() {}
 
@@ -86,4 +87,6 @@ public class Chat implements Serializable {
 	public String toString(){
 		return message;
 	}
+	
+
 }

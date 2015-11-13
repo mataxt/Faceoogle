@@ -8,7 +8,6 @@ http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>model.User</class>
 		<class>model.Log</class>
-		<class>model.Friend</class>
 		<class>model.Chat</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>

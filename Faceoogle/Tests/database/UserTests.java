@@ -1,5 +1,7 @@
 package database;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -46,34 +48,59 @@ public class UserTests extends TestCase {
 			emf.close();
 		}
 	}
-	
+
 	public void testUserMethods() {
 		try {
-			User usr = new User("Username", "Password", "Name", Date.valueOf("1990-01-01"), "Man");
+
+			User user = new User("Username", "Password", "Name", Date.valueOf("1990-01-01"), "Man");
+			User friend = new User("Friend", "Password", "Name", Date.valueOf("1990-01-01"), "Man");
+			UserDB.removeUser(user);
+			assertFalse("User did not remove", UserDB.checkUser(user));
+			UserDB.removeUser(friend);
+			assertFalse("Friend did not remove", UserDB.checkUser(friend));
+
 			Random rnd = new Random();
-			//User exists?
-			while (!UserDB.addUser(usr)) {
-				usr.setUsername(usr.getUsername()+ rnd.nextInt());
+			// User exists?
+			while (!UserDB.addUser(user) || !UserDB.addUser(friend)) {
+				user.setUsername(user.getUsername() + rnd.nextInt());
+				friend.setUsername(friend.getUsername() + rnd.nextInt());
 			}
-			assertTrue("User did not insert",UserDB.checkUser(usr));
+			assertTrue("User did not insert", UserDB.checkUser(user));
+
+			// All values correct?
+			User result = em.createQuery("from User where username = ?1", User.class)
+					.setParameter(1, user.getUsername()).getSingleResult();
+			assertEquals("Wrong username inserted", user.getUsername(), result.getUsername());
+			assertEquals("Wrong password inserted", user.getPassword(), result.getPassword());
+			assertEquals("Wrong name inserted", user.getName(), result.getName());
+			assertEquals("Wrong birthdate inserted", user.getBirthDate(), result.getBirthDate());
+			assertEquals("Wrong gender inserted", user.getGender(), result.getGender());
+
+			// Can Search?
+			List<User> users = UserDB.searchUserName(user.getUsername());
+			assertFalse("Fetching users failer", users.isEmpty());
+			assertTrue("Search Failed ", users.contains(user));
+
+			// Can add friends?
+			FriendDB.addFriend(user, friend);
+			assertTrue("Remove friend failed", FriendDB.getFriends(user).contains(friend));
 			
-			//All values correct?
-			User result = em.createQuery("from User where username = ?1", User.class).setParameter(1, usr.getUsername()).getSingleResult();
-			assertEquals("Wrong username inserted",usr.getUsername(), result.getUsername());
-			assertEquals("Wrong password inserted",usr.getPassword(), result.getPassword());
-			assertEquals("Wrong name inserted",usr.getName(), result.getName());
-			assertEquals("Wrong birthdate inserted",usr.getBirthDate(), result.getBirthDate());
-			assertEquals("Wrong gender inserted",usr.getGender(), result.getGender());
-			
-			//Can Search?
-			List<User> users = UserDB.searchUserName(usr.getUsername());
-			assertFalse(users.isEmpty());
-			assertTrue("Search Failed ",users.contains(usr));
-			
-			//Can remove?
-			UserDB.removeUser(usr);
-			assertFalse("User did not remove",UserDB.checkUser(usr));
-			
+			// Can get friends?
+			ArrayList<User> friendsList = new ArrayList<User>(FriendDB.getFriends(user));
+			assertFalse("Fetching friendlist failer", friendsList.isEmpty());
+			assertTrue("Fetching wrong friends", friendsList.contains(friend));
+
+			// Can remove friends?
+			friendsList =  new ArrayList<User>(FriendDB.getFriends(user));
+			FriendDB.removeFriend(user, friend);
+			assertFalse("Remove friend failed", friendsList.contains(friend));
+
+			// Can remove?
+			UserDB.removeUser(user);
+			assertFalse("User did not remove", UserDB.checkUser(user));
+			UserDB.removeUser(friend);
+			assertFalse("Friend did not remove", UserDB.checkUser(friend));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("Exception during user method commit.");

@@ -6,7 +6,7 @@ import org.junit.runner.notification.Failure;
 
 public class DBTestRunner {
 	public static void main(String[] args) {
-		Result result = JUnitCore.runClasses(UserTests.class, LogTests.class, ChatTests.class);
+		Result result = JUnitCore.runClasses(UserTests.class);
 		for (Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());
 		}

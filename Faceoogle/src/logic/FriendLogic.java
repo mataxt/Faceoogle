@@ -4,28 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.FriendDB;
-import model.Friend;
+import model.User;
 
 public class FriendLogic {
-	public static void addFriend(String user, String friend) {
-		Friend frd = new Friend(user, friend);
-		
-		FriendDB.addFriend(frd);
+	public static void addFriend(String userName, String friendName) {
+		User user = new User(userName);
+		User friend = new User(friendName);
+		FriendDB.addFriend(user,friend);
 	}
 	
-	public static void removeFriend(String user, String friend) {
-		Friend frd = new Friend(user, friend);
-		
-		FriendDB.removeFriend(frd);
+	public static void removeFriend(String userName, String friendName) {
+		User user = new User(userName);
+		User friend = new User(friendName);
+		FriendDB.removeFriend(user,friend);
 	}
 	
-	public static List<String> getFriends(String user) {
-		Friend frd = new Friend();
-		frd.setuser(user);
+	public static List<String> getFriends(String userName) {
+		User user = new User(userName);
 		List<String> friendNames = new ArrayList<String>();
-		List<Friend> friendList = FriendDB.getFriends(user);
-		for (Friend  friend : friendList) {
-			friendNames.add(friend.getfriend()) ;
+		List<User> friendList = FriendDB.getFriends(user);
+		for (User  friend : friendList) {
+			friendNames.add(friend.getUsername()) ;
 		}
 		return friendNames;
 	}
@@ -33,7 +32,7 @@ public class FriendLogic {
 	public static String isFriend(String user, String friend) {
 		if (user.equals(friend)) {
 			return "OWN";
-		} else if ((FriendDB.getFriends(user).toString()).contains(friend)) {
+		} else if ((FriendDB.getFriends(new User(user)).toString()).contains(friend)) {
 			return "KNOWN";
 		} else {
 			return "UNKNOWN";

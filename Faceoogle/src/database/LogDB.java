@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import model.Log;
 import model.User;
@@ -22,7 +23,7 @@ public class LogDB {
 			logId = log.getId();
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();				
+				em.getTransaction().rollback();
 			}
 		} finally {
 			em.close();
@@ -30,37 +31,44 @@ public class LogDB {
 		emf.close();
 		return logId;
 	}
-	
+
 	public static List<Log> listUserLogs(String usrName) {
 		List<Log> logs = new ArrayList<Log>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
-			String query = "from Log where receiver = ?1 order by timestamp desc"; 
+			String query = "from Log where receiver = ?1 order by timestamp desc";
 			logs = em.createQuery(query, Log.class).setParameter(1, usrName).getResultList();
 		} finally {
 			em.close();
 		}
 		emf.close();
-		
+
 		return logs;
 	}
-	
-	public static List<Log> listUserFeed(User usr) {
+
+	public static List<Log> listUserFeed(User user) {
 		List<Log> logs = new ArrayList<Log>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
-			String query = "from Log where receiver in (select f.friend from Friend f where f.user = ?1) or receiver = ?1 order by timestamp desc"; 
-			logs = em.createQuery(query, Log.class).setParameter(1, usr.getUsername()).getResultList();
+			TypedQuery<User> q = em
+					.createQuery("select NEW model.User(f.username) "
+							+ "from User u inner join u.friends f where u.username = ?1", User.class)
+					.setParameter(1, user.getUsername());
+			List<User> friends = q.getResultList();
+			List<String> friendNames = new ArrayList<String>();
+			friends.forEach(f -> friendNames.add(f.toString()));
+			String query = "from Log where receiver in (:friends) or receiver = ?1 order by timestamp desc";
+			logs = em.createQuery(query, Log.class).setParameter(1, user.getUsername()).setParameter("friends", friendNames).getResultList();
 		} finally {
 			em.close();
 		}
 		emf.close();
-		
+
 		return logs;
 	}
-	
+
 	public static void removeLog(Log log) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
@@ -70,7 +78,7 @@ public class LogDB {
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();				
+				em.getTransaction().rollback();
 			}
 		} finally {
 			em.close();
