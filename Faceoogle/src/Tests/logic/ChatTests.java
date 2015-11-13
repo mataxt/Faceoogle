@@ -1,4 +1,4 @@
-package logic;
+package Tests.logic;
 
 import junit.framework.TestCase;
 

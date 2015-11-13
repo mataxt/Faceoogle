@@ -1,4 +1,4 @@
-package database;
+package Tests.database;
 
 import java.util.List;
 
