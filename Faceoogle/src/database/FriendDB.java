@@ -38,21 +38,14 @@ public class FriendDB {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
-			// WHY NO TRANSACTION HERE???????????????????????????? Dvs. em.getTransaction().begin();
-			System.out.println("US3R: " + user + ", MY FRÄND: " + friend);
-			User f = em.find(User.class, friend.getUsername());
-			System.out.println("FULL NAME FRÄND: " + f.getName());
-			em.remove(f);
-			//em.flush(); // FEL HÄR!!!!!
+			em.getTransaction().begin();
 			User u = em.find(User.class, user.getUsername());
-			System.out.println("FULL NAME r3kt: " + u.getName());
+			User f = em.find(User.class, friend.getUsername());
+			u.removeFriend(f);
 			em.merge(u);
-//			u.setFriends(null);
 			em.flush();
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("WOWOWOWOWOWOWOWOWOWOOWOWOWOWOWOWOWOWOWOWOW: " + e);
-			// javax.persistence.TransactionRequiredException: no transaction is in progress <----  SKRIVS UT!!!!!!!!!!!!!!!
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
