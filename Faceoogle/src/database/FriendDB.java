@@ -38,11 +38,12 @@ public class FriendDB {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
+			// WHY NO TRANSACTION HERE???????????????????????????? Dvs. em.getTransaction().begin();
 			System.out.println("US3R: " + user + ", MY FRÄND: " + friend);
 			User f = em.find(User.class, friend.getUsername());
 			System.out.println("FULL NAME FRÄND: " + f.getName());
 			em.remove(f);
-			em.flush();
+			//em.flush(); // FEL HÄR!!!!!
 			User u = em.find(User.class, user.getUsername());
 			System.out.println("FULL NAME r3kt: " + u.getName());
 			em.merge(u);
