@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
 import model.User;
 
@@ -55,14 +54,14 @@ public class FriendDB {
 		emf.close();
 	}
 
+
+	@SuppressWarnings("unchecked")
 	public static List<User> getFriends(User user) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		List<User> friends = new ArrayList<User>();
 		try {
-			TypedQuery<User> q = em.createQuery("select NEW model.User(f.username) "
-					+ "from User u inner join u.friends f where u.username = ?1",User.class).setParameter(1,user.toString());
-			friends = q.getResultList();
+			friends = em.createQuery("select u.friends from User u where u.username = ?1").setParameter(1,user.toString()).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

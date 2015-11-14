@@ -64,7 +64,7 @@ public class LogTests extends TestCase{
 
 			//Get the logs
 			List<Log> logs = LogDB.listUserLogs(log.getReceiver());
-			assertFalse("Fetching list failed",logs.isEmpty());
+			assertFalse("Fetching logs failed",logs.isEmpty());
 			assertEquals("Fetching writer failed",log.getWriter(), logs.get(0).getWriter());
 			assertEquals("Fetching receiver failed",log.getReceiver(), logs.get(0).getReceiver());
 			assertEquals("Fetching body failed",log.getBody(), logs.get(0).getBody());
