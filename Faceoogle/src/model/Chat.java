@@ -22,7 +22,6 @@ public class Chat implements Serializable {
 	private String message;
 	private String timesamp;
 
-
 	public Chat() {}
 
 	public Chat(String chater, String chatee) {

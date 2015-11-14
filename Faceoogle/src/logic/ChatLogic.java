@@ -9,9 +9,9 @@ import vm.ChatViewModel;
 
 public class ChatLogic {
 
-	public static void sendMessage(String chater, String chatee, String message) {
+	public static Integer sendMessage(String chater, String chatee, String message) {
 		Chat chat = new Chat(chater, chatee, message);
-		ChatDB.addChat(chat);
+		return ChatDB.addChat(chat);
 	}
 
 	public static List<ChatViewModel> getChatHistory(String chater, String chatee) {
@@ -24,5 +24,4 @@ public class ChatLogic {
 		originalChat.forEach(c -> chatvm.add(new ChatViewModel(c)));
 		return chatvm;
 	}
-
 }
