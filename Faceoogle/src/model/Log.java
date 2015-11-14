@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "logs", catalog = "faceoogle")
 public class Log implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private String writer;
 	private String receiver;
 	private String body;
@@ -34,11 +34,11 @@ public class Log implements Serializable {
 	@Id
 	@Column(name = "Id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

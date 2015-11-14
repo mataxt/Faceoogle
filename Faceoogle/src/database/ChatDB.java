@@ -29,7 +29,7 @@ public class ChatDB {
 		emf.close();
 		return chatId;
 	}
-//
+
 //	public static boolean checkChat(Chat chat) {
 //		boolean exists = false;
 //		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");

@@ -47,13 +47,13 @@ public class LogTests extends TestCase{
 		}
 	}
 	
-	
 	public void testLog() {
 		try {
-			Log log = new Log("Writer","Receiver","Body");
+			Log log = new Log("Writer", "Receiver", "Body");
 			
 			//Log created?
 			log.setId(LogDB.addLog(log));
+			assertFalse("Log could not be created", log.getId().equals(null));
 
 			//All values correct?
 			Log result = em.createQuery("from Log where id = ?1", Log.class).setParameter(1, log.getId()).getSingleResult();

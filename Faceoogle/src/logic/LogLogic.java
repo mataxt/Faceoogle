@@ -12,6 +12,7 @@ public class LogLogic {
 	public static List<LogViewModel> getLogs(String receiver) {
 		List<LogViewModel> lvm = new ArrayList<LogViewModel>();
 		List<Log> original = LogDB.listUserLogs(receiver);
+		
 		for (Log log : original) {
 			log.setBody(log.getBody().replaceAll("(.{60})", "$1\n"));
 			lvm.add(new LogViewModel(log));
@@ -32,8 +33,8 @@ public class LogLogic {
 		return lvm;
 	}
 	
-	public static void writeLog(String username, String receiver, String messageLogs) {
+	public static Integer writeLog(String username, String receiver, String messageLogs) {
 		Log log = new Log(username, receiver, messageLogs);
-		LogDB.addLog(log);
+		return LogDB.addLog(log);
 	}
 }

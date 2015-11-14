@@ -24,5 +24,4 @@ public class LogViewModel {
 	public String getBody() {
 		return body;
 	}
-
 }

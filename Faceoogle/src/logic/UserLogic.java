@@ -28,15 +28,16 @@ public class UserLogic {
 		}
 
 		return names;
-
 	}
 
 	public static UserViewModel getUserInfo(String user) {
 		List<User> usrInfo = UserDB.searchUserName(user);
 		UserViewModel vm = null;
+		
 		if (!usrInfo.isEmpty()) {
 			vm = new UserViewModel(UserDB.searchUserName(user).get(0));
 		}
+		
 		return vm;
 	}
 }
