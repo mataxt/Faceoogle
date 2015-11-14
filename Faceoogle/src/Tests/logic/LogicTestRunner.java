@@ -6,7 +6,7 @@ import org.junit.runner.notification.Failure;
 
 public class LogicTestRunner {
 	public static void main(String[] args) {
-		Result result = JUnitCore.runClasses(ChatTests.class);
+		Result result = JUnitCore.runClasses(ChatTests.class,LogTests.class);
 		
 		for (Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());

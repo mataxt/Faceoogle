@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
 import model.Log;
 import model.User;
@@ -41,30 +40,29 @@ public class LogDB {
 			logs = em.createQuery(query, Log.class).setParameter(1, usrName).getResultList();
 		} finally {
 			em.close();
+			emf.close();
 		}
-		emf.close();
 
 		return logs;
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	public static List<Log> listUserFeed(User user) {
 		List<Log> logs = new ArrayList<Log>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
 		try {
-			TypedQuery<User> q = em
-					.createQuery("select NEW model.User(f.username) "
-							+ "from User u inner join u.friends f where u.username = ?1", User.class)
-					.setParameter(1, user.getUsername());
-			List<User> friends = q.getResultList();
+			List<User> friends = em.createQuery("select u.friends from User u where u.username = ?1 ")
+					.setParameter(1, user.getUsername()).getResultList();
 			List<String> friendNames = new ArrayList<String>();
 			friends.forEach(f -> friendNames.add(f.toString()));
 			String query = "from Log where receiver in (:friends) or receiver = ?1 order by timestamp desc";
-			logs = em.createQuery(query, Log.class).setParameter(1, user.getUsername()).setParameter("friends", friendNames).getResultList();
+			logs = em.createQuery(query, Log.class).setParameter(1, user.getUsername())
+					.setParameter("friends", friendNames).getResultList();
 		} finally {
 			em.close();
+			emf.close();
 		}
-		emf.close();
 
 		return logs;
 	}
@@ -82,7 +80,7 @@ public class LogDB {
 			}
 		} finally {
 			em.close();
+			emf.close();
 		}
-		emf.close();
 	}
 }

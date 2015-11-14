@@ -31,9 +31,10 @@
 	<script type="text/javascript">
 		$(document).ready(scrollToBottom);
 		function scrollToBottom() {
-			$("#chatForm\\:chatBox_content").addClass("ui-widget-content-scrollable");
-			(jQuery("#chatForm\\:chatBox_content")).scrollTop(
-					((jQuery("#chatForm\\:chatBox_content"))[0].scrollHeight + 1));
+			$("#chatForm\\:chatBox_content").addClass(
+					"ui-widget-content-scrollable");
+			(jQuery("#chatForm\\:chatBox_content"))
+					.scrollTop(((jQuery("#chatForm\\:chatBox_content"))[0].scrollHeight + 1));
 		}
 	</script>
 	<script type="text/javascript">
@@ -44,7 +45,8 @@
 		}
 
 		function setScrollPosition() {
-			$("#chatForm\\:chatBox_content").addClass("ui-widget-content-scrollable");
+			$("#chatForm\\:chatBox_content").addClass(
+					"ui-widget-content-scrollable");
 			(jQuery("#chatForm\\:chatBox_content")).scrollTop(scrollPosition);
 		}
 	</script>
@@ -160,11 +162,10 @@
 
 						<div class="row">
 							<div class="form-group col-xs-12">
-									<p:commandButton value="Send" id="sendMsg"
-										update="chatForm" type="submit"
-										oncomplete="scrollToBottom(),clearInput()"
-										actionListener="#{chatBean.sendMessage}"
-										styleClass="ui-priority-primary" />
+								<p:commandButton value="Send" id="sendMsg" update="chatForm"
+									type="submit" oncomplete="scrollToBottom(),clearInput()"
+									actionListener="#{chatBean.sendMessage}"
+									styleClass="ui-priority-primary" />
 							</div>
 						</div>
 					</h:form>
@@ -177,7 +178,8 @@
 					<h:form id="searchForm">
 						<h:inputText size="20" value="#{searchBean.searchName}"
 							styleClass="form-control">
-							<f:ajax event="keyup" render="nameList" />
+							<p:ajax event="keyup" delay="1000" update="nameList"
+								process="@form" />
 						</h:inputText>
 
 						<h:dataTable id="nameList" value="#{searchBean.names}" var="n"
