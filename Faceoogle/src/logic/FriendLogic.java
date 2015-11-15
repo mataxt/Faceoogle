@@ -7,16 +7,16 @@ import database.FriendDB;
 import model.User;
 
 public class FriendLogic {
-	public static void addFriend(String userName, String friendName) {
+	public static boolean addFriend(String userName, String friendName) {
 		User user = new User(userName);
 		User friend = new User(friendName);
-		FriendDB.addFriend(user,friend);
+		return FriendDB.addFriend(user,friend);
 	}
 	
-	public static void removeFriend(String userName, String friendName) {
+	public static boolean removeFriend(String userName, String friendName) {
 		User user = new User(userName);
 		User friend = new User(friendName);
-		FriendDB.removeFriend(user,friend);
+		return FriendDB.removeFriend(user,friend);
 	}
 	
 	public static List<String> getFriends(String userName) {
@@ -28,7 +28,12 @@ public class FriendLogic {
 		}
 		return friendNames;
 	}
-	
+	/**
+	 * 
+	 * @param user
+	 * @param friend
+	 * @return String "OWN" if the user, "KNOWN" if he is a friend, "UNKNOWN" if he is not a friend.
+	 */
 	public static String isFriend(String user, String friend) {
 		if (user.equals(friend)) {
 			return "OWN";

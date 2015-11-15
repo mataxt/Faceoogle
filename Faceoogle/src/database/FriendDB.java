@@ -11,9 +11,10 @@ import model.User;
 
 public class FriendDB {
 
-	public static void addFriend(User user, User friend) {
+	public static boolean addFriend(User user, User friend) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
+		boolean added = false;
 		try {
 			em.getTransaction().begin();
 			User u = em.find(User.class, user.getUsername());
@@ -22,6 +23,7 @@ public class FriendDB {
 			em.merge(u);
 			em.flush();
 			em.getTransaction().commit();
+			added = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (em.getTransaction().isActive()) {
@@ -31,11 +33,13 @@ public class FriendDB {
 			em.close();
 		}
 		emf.close();
+		return added;
 	}
 
-	public static void removeFriend(User user, User friend) {
+	public static boolean removeFriend(User user, User friend) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
+		boolean removed = false;
 		try {
 			em.getTransaction().begin();
 			User u = em.find(User.class, user.getUsername());
@@ -44,6 +48,7 @@ public class FriendDB {
 			em.merge(u);
 			em.flush();
 			em.getTransaction().commit();
+			removed = true;
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
@@ -52,6 +57,7 @@ public class FriendDB {
 			em.close();
 		}
 		emf.close();
+		return removed;
 	}
 
 

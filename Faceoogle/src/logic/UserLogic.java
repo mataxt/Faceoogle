@@ -19,25 +19,21 @@ public class UserLogic {
 		return UserDB.addUser(usr);
 	}
 
-	public static ArrayList<String> getUserNamesByName(String name) {
+	public static ArrayList<String> getUserNames(String name) {
 		ArrayList<String> names = new ArrayList<String>();
 		List<User> users = UserDB.searchUserName(name);
-
 		for (User user : users) {
 			names.add(user.getUsername());
 		}
-
 		return names;
 	}
 
 	public static UserViewModel getUserInfo(String user) {
 		List<User> usrInfo = UserDB.searchUserName(user);
 		UserViewModel vm = null;
-		
 		if (!usrInfo.isEmpty()) {
 			vm = new UserViewModel(UserDB.searchUserName(user).get(0));
 		}
-		
 		return vm;
 	}
 }
