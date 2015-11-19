@@ -55,9 +55,8 @@ public class LogDB {
 			List<User> friends = em.createQuery("select u.friends from User u where u.username = ?1 ")
 					.setParameter(1, user.getUsername()).getResultList();
 			List<String> friendNames = new ArrayList<String>();
-			friends.forEach(f -> friendNames.add(f.toString()));
-			String query = "from Log where receiver in (:friends) or receiver = ?1 order by timestamp desc";
-			logs = em.createQuery(query, Log.class).setParameter(1, user.getUsername())
+			if(friends.size() > 0)
+				logs = em.createQuery("from Log where receiver in (:friends) or receiver = ?1 order by timestamp desc", Log.class).setParameter(1, user.getUsername())
 					.setParameter("friends", friendNames).getResultList();
 		} finally {
 			em.close();
