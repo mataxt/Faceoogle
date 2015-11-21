@@ -1,2 +1,0 @@
-# Faceoogle
-Faceoogle Project
