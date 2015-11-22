@@ -25,9 +25,6 @@ public class ProfileBean implements Serializable {
 		return vm;
 	}
 	
-	public void setVm(UserViewModel vm) {
-		this.vm = vm;
-	}
 	
 	public String getParamUser() {
 		return paramUser;

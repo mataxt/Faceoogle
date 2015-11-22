@@ -48,7 +48,7 @@ public class UserDB {
 			em.close();
 		}
 		emf.close();
-	
+
 		return exists;
 	}
 
@@ -69,20 +69,36 @@ public class UserDB {
 		emf.close();
 	}
 
-	public static List<User> searchUserName(String username) {
+	public static User getUserInfo(String username) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 		EntityManager em = emf.createEntityManager();
-		List<User> users = new ArrayList<User>();
+		User user = null;
 		try {
-			users = em.createQuery("from User where username like CONCAT('%', :namesList, '%') order by username",
-					User.class).setParameter("namesList",username).setMaxResults(5).getResultList();
+			user = em.find(User.class, username);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			em.close();
 		}
 		emf.close();
-		
+
+		return user;
+	}
+
+	public static List<User> searchUserName(String username) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
+		EntityManager em = emf.createEntityManager();
+		List<User> users = new ArrayList<User>();
+		try {
+			users = em.createQuery("from User where username like CONCAT('%', :namesList, '%') order by username",
+					User.class).setParameter("namesList", username).setMaxResults(5).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		emf.close();
+
 		return users;
 	}
 }

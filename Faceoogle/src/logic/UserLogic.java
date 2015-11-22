@@ -29,11 +29,6 @@ public class UserLogic {
 	}
 
 	public static UserViewModel getUserInfo(String user) {
-		List<User> usrInfo = UserDB.searchUserName(user);
-		UserViewModel vm = null;
-		if (!usrInfo.isEmpty()) {
-			vm = new UserViewModel(UserDB.searchUserName(user).get(0));
-		}
-		return vm;
+		return new UserViewModel(UserDB.getUserInfo(user));
 	}
 }

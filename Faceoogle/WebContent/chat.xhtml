@@ -176,20 +176,11 @@
 					<p>Search</p>
 
 					<h:form id="searchForm">
-						<h:inputText size="20" value="#{searchBean.searchName}"
-							styleClass="form-control">
-							<p:ajax event="keyup" delay="1000" update="nameList"
-								process="@form" />
-						</h:inputText>
-
-						<h:dataTable id="nameList" value="#{searchBean.names}" var="n"
-							border="1" styleClass="form-control">
-							<h:column rendered="#{not empty searchBean.searchName}">
-								<p:link outcome="profile" value="#{n}">
-									<f:param name="user" value="#{n}" />
-								</p:link>
-							</h:column>
-						</h:dataTable>
+						<p:autoComplete id="acDelay" value="#{searchBean.searchName}"
+							completeMethod="#{searchBean.getResult}">
+							<p:ajax event="itemSelect"
+								listener="#{searchBean.onSelect}"/>
+						</p:autoComplete>
 					</h:form>
 				</div>
 			</div>
